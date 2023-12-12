@@ -15,10 +15,6 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    public function admin(){
-        return view('admin.home');
-    }
-
     /**
      * Display the user's profile form.
      */
