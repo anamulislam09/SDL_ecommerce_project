@@ -18,6 +18,7 @@
             </div>
         </div>
         <!-- Sidebar Menu -->
+        <!-- Category start here -->
         <nav class="">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
@@ -29,7 +30,7 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
                             <a href="{{route('category.index')}}" class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
@@ -37,14 +38,29 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('subcategory.index')}}" class="nav-link">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>Subcategory</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('brand.index')}}" class="nav-link">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>Brand</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                {{-- <li class="nav-header">MULTI LEVEL EXAMPLE</li> --}}
+
+                {{-- Products start here --}}
+                <li class="nav-item">
+                    <a href="{{route('product.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-circle"></i>
+                        <p>Products</p>
+                    </a>
+                </li>
+
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-circle"></i>

@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,8 +38,60 @@ Route::middleware('is_admin')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('category.index');
         Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
         Route::post('/store', [CategoryController::class, 'store'])->name('store.category');
-        // Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
-        // Route::get('/edit/{id}', [CategoryController::class, 'edit']);
-        // Route::post('/update', [CategoryController::class, 'update'])->name('update.category');
+        Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit']);
+        Route::post('/update', [CategoryController::class, 'update'])->name('update.category');
+       
     });
+
+     // SubCategory route
+     Route::group(['prefix' => 'subcategory'], function () {
+        Route::get('/', [SubcategoryController::class, 'index'])->name('subcategory.index');
+        Route::get('/create', [SubcategoryController::class, 'create'])->name('subcategory.create');
+        Route::post('/store', [SubcategoryController::class, 'store'])->name('store.subcategory');
+        Route::get('/delete/{id}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
+        Route::get('/edit/{id}', [SubcategoryController::class, 'edit']);
+        Route::post('/update', [SubcategoryController::class, 'update'])->name('update.subcategory');
+       
+    });
+
+     // Brand route
+     Route::group(['prefix' => 'brand'], function () {
+        Route::get('/', [BrandController::class, 'index'])->name('brand.index');
+        Route::get('/create', [BrandController::class, 'create'])->name('brand.create');
+        Route::post('/store', [BrandController::class, 'store'])->name('store.brand');
+        Route::get('/delete/{id}', [BrandController::class, 'destroy'])->name('brand.delete');
+        Route::get('/edit/{id}', [BrandController::class, 'edit']);
+        Route::post('/update', [BrandController::class, 'update'])->name('update.brand');
+       
+    });
+
+  // Products route 
+  Route::group(['prefix' => 'product'], function () {
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+    Route::post('/store', [ProductController::class, 'store'])->name('store.product');
+    
+    Route::post('/subcategory', [ProductController::class, 'subcategory']); // get subcategory using ajex 
+    Route::post('/childcategory', [ProductController::class, 'childcategory']); // get subcategory using ajex 
+
+    // featured reoute start here 
+    Route::get('/not-featured/{id}', [ProductController::class, 'notFeatured']); // Not-featured route
+    Route::get('/active-featured/{id}', [ProductController::class, 'activeFeatured']); // active-featured route
+   // featured reoute ends here 
+    // TodayDeal reoute start here 
+    Route::get('/active_today_deal/{id}', [ProductController::class, 'activeTodayDeal']); // active-featured route
+    Route::get('/not_today_dea/{id}', [ProductController::class, 'notTodayDeal']); // Not-featured route
+    // TodayDeal reoute ends here 
+    
+    // TodayDeal reoute ends here 
+    Route::get('/active_status/{id}', [ProductController::class, 'activeStatus']); // Active route
+    Route::get('/no_tactive_status/{id}', [ProductController::class, 'notActiveStatus']); //deActive route
+    // featured reoute ends here 
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');;
+    Route::post('/update', [ProductController::class, 'update'])->name('update.product');
+    Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+});
+
+
 });

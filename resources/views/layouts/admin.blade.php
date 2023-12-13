@@ -29,6 +29,10 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/summernote/summernote-bs4.min.css') }}">
 
+      <!-- sweetalert -->
+  <link rel="stylesheet" href="{{asset('backend/plugins/sweetalert2/sweetalert2.css')}}">
+  <!-- toaste -->
+  <link rel="stylesheet" href="{{asset('backend/plugins/toastr/toastr.css')}}">
      <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -84,6 +88,11 @@
     <script src="{{ asset('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
     <!-- AdminLTE App -->
 
+    <!-- sweetalert -->
+<script src="{{asset('backend/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<!-- toaste -->
+<script src="{{asset('backend/plugins/toastr/toastr.min.js')}}"></script>
+
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
@@ -131,6 +140,49 @@
           });
         });
       </script>
+
+<script>
+    @if (Session::has('message'))
+    var type = "{{Session::get('alert-type','info')}}"
+      switch (type) {
+        case 'info':
+          toastr.info("{{Session::get('message')}}");
+          break;
+        case 'success':
+          toastr.success("{{Session::get('message')}}");
+          break;
+        case 'warning':
+          toastr.warning("{{Session::get('message')}}");
+          break;
+        case 'error':
+          toastr.error("{{Session::get('message')}}");
+          break;
+      }
+    @endif
+  </script>
+
+{{-- before logout showing alert message --}}
+<script>
+    $(document).on('click', '#logout', function(e){
+      e.preventDefault();
+      var link = $(this).attr('action');
+      swal({
+        title: "Are you want to Logout?",
+        text: "",
+        icon:"warning",
+        button:true,
+        dangerMode:true,
+      })
+      .then((willDelete) => {
+        if(willDelete){
+          window.location.href = link
+        }else{
+          swal("Not Logout");
+        }
+      });
+    });
+  </script>
+
 </body>
 
 </html>
