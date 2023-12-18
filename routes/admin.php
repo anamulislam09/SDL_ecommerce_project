@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PickuppointController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Subcategory;
@@ -73,7 +75,7 @@ Route::middleware('is_admin')->group(function () {
     Route::post('/store', [ProductController::class, 'store'])->name('store.product');
     
     Route::post('/subcategory', [ProductController::class, 'subcategory']); // get subcategory using ajex 
-    Route::post('/childcategory', [ProductController::class, 'childcategory']); // get subcategory using ajex 
+    // Route::post('/childcategory', [ProductController::class, 'childcategory']); // get subcategory using ajex 
 
     // featured reoute start here 
     Route::get('/not-featured/{id}', [ProductController::class, 'notFeatured']); // Not-featured route
@@ -88,10 +90,29 @@ Route::middleware('is_admin')->group(function () {
     Route::get('/active_status/{id}', [ProductController::class, 'activeStatus']); // Active route
     Route::get('/no_tactive_status/{id}', [ProductController::class, 'notActiveStatus']); //deActive route
     // featured reoute ends here 
-    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');;
+    Route::get('/edit/{id}', [ProductController::class, 'edit']);
     Route::post('/update', [ProductController::class, 'update'])->name('update.product');
     Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
 });
 
+// warehouse route
+Route::group(['prefix' => 'warehouse'], function () {
+    Route::get('/', [WarehouseController::class, 'index'])->name('warehouse.index');
+    Route::get('/create', [WarehouseController::class, 'create'])->name('warehouse.create');
+    Route::post('/store', [WarehouseController::class, 'store'])->name('store.warehouse');
+    Route::get('/edit/{id}', [WarehouseController::class, 'edit']);
+    Route::post('/update', [WarehouseController::class, 'update'])->name('update.warehouse');
+    Route::get('/delete/{id}', [WarehouseController::class, 'destroy'])->name('warehouse.delete');
+});
+
+ // Pickup-point routes
+ Route::group(['prefix' => 'pickupPoint'], function () {
+    Route::get('/', [PickuppointController::class, 'index'])->name('pickup_point.index');
+    Route::get('/create', [PickuppointController::class, 'create'])->name('pickup_point.create');
+    Route::post('/store', [PickuppointController::class, 'store'])->name('store.pickup_point');
+    Route::get('/edit/{id}', [PickuppointController::class, 'edit']);
+    Route::post('/update', [PickuppointController::class, 'update'])->name('update.pickup_point');
+    Route::get('/delete/{id}', [PickuppointController::class, 'destroy'])->name('pickup_point.delete');
+});
 
 });

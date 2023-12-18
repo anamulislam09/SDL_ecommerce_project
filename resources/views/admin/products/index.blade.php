@@ -1,7 +1,13 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css" />
+    <style>
+        .product_model {
+            max-width: 800px;
+            margin: 0.75rem auto;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css" />
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content mt-3">
@@ -12,10 +18,10 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-lg-10 col-sm-12">
-                                        <h3 class="card-title">All categories</h3>
+                                        <h3 class="card-title">All Products</h3>
                                     </div>
                                     <div class="col-lg-2 col-sm-12">
-                                        <a href="{{ route('subcategory.create') }}" class="btn btn-outline-primary">Add new</a>
+                                        <a href="{{ route('product.create') }}" class="btn btn-outline-primary">Add new</a>
                                     </div>
                                 </div>
                             </div>
@@ -25,23 +31,27 @@
                                     <thead>
                                         <tr>
                                             <th>SL</th>
-                                            <th>product_name</th>
+                                            <th>Product_name</th>
+                                            <th>Product_thumbnail</th>
+                                            <th>Selling_price</th>
                                             <th>Category_name</th>
                                             <th>SubCategory_name</th>
-                                            <th>product_code</th>
-                                            <th>product_unit</th>
-                                            <th>product_tags</th>
-                                            <th>product_color</th>
-                                            <th>product_size</th>
-                                            <th>purchase_price</th>
-                                            <th>selling_price</th>
+                                            <th>Product_code</th>
+                                            <th>Product_unit</th>
+                                            <th>Product_tags</th>
+                                            <th>Product_color</th>
+                                            <th>Product_size</th>
+                                            <th>Purchase_price</th>
                                             <th> Action</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $key => $item)
                                             <tr>
-                                                <td>{{ $key+1 }}</td>
+                                                <td>{{ $key + 1 }}</td>
                                                 <td>{{ $item->product_name }}</td>
+                                                    <td><img src="{{ asset($item->product_thumbnail) }}" style="width: 80px"
+                                                        alt="{{ $item->product_thumbnail }}"></td>
+                                                <td>{{ $item->selling_price }}</td>
                                                 <td>{{ $item->category_name }}</td>
                                                 <td>{{ $item->sub_category_name }}</td>
                                                 <td>{{ $item->product_code }}</td>
@@ -50,10 +60,12 @@
                                                 <td>{{ $item->product_color }}</td>
                                                 <td>{{ $item->product_size }}</td>
                                                 <td>{{ $item->purchase_price }}</td>
-                                                <td>{{ $item->selling_price }}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-sm btn-info edit" data-id="{{$item->id}}" data-toggle="modal" data-target="#editSubCatModel"><i class="fas fa-edit"></i></a>
-                                                    <a href="{{ route('subcategory.delete', $item->id) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                                    <a href="" class="btn btn-sm btn-info edit"
+                                                        data-id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#editproductModel"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('product.delete', $item->id) }}"
+                                                        class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -66,38 +78,37 @@
             </div>
         </section>
     </div>
-  
-     {{-- category edit model --}}
-  <!-- Modal -->
-  <div class="modal fade" id="editSubCatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit SubCategory </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
 
-        <div id="modal_body">
+    {{-- category edit model --}}
+    <!-- Modal -->
+    <div class="modal fade" id="editproductModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog product_model" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Product </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
+                <div id="modal_body">
+
+                </div>
+
+            </div>
         </div>
-       
-      </div>
     </div>
-  </div>
 
-   <!-- jQuery -->
-   <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js"></script>
-  <script>
-$('body').on('click', '.edit', function(){
-  let Subcat_id = $(this).data('id');
-  $.get("subcategory/edit/"+Subcat_id,function(data){
-    $('#modal_body').html(data);
-    
-  })
-})
-
-  </script>
+    <!-- jQuery -->
+    <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js"></script>
+    <script>
+        $('body').on('click', '.edit', function() {
+            let product_id = $(this).data('id');
+            $.get("product/edit/" + product_id, function(data) {
+                $('#modal_body').html(data);
+            })
+        })
+    </script>
 @endsection

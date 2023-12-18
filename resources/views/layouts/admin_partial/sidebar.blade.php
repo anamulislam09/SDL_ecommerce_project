@@ -59,6 +59,21 @@
                         <p>Products</p>
                     </a>
                 </li>
+                {{-- warehouse start here --}}
+                <li class="nav-item">
+                    <a href="{{route('warehouse.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-circle"></i>
+                        <p>Warehouse</p>
+                    </a>
+                </li>
+
+                {{-- pickup_point.index start here --}}
+                <li class="nav-item">
+                    <a href="{{route('pickup_point.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-circle"></i>
+                        <p>Pickup_point</p>
+                    </a>
+                </li>
 
 
                 <li class="nav-item">

@@ -31,7 +31,7 @@ return new class extends Migration
             $table->integer('warehouse')->nullable();
             $table->text('product_description')->nullable();
             $table->string('product_thumbnail')->nullable();
-            $table->string('images')->nullable();
+            $table->text('images')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('today_deal')->nullable();
             $table->integer('status')->nullable();
