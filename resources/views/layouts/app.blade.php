@@ -1,36 +1,62 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<!doctype html>
+<html class="no-js" lang="zxx">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Topico - Clean, Minimal E-commerce HTML5 Template </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/img/favicon.png') }}')}}">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/preloader.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/backToTop.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/meanmenu.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/fontAwesome5Pro.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/ui-range-slider.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/default.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+</head>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+<body>
+    <!-- header area start -->
+    @include('layouts.frontend_partial.header')
+    <!-- header area end -->
+    <main>
+        @yield('frontend_content')
+    </main>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+    <!-- footer area start -->
+    @include('layouts.frontend_partial.footer')
+
+    <!-- footer area end -->
+
+    <!-- JS here -->
+    <script src="{{ asset('frontend/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/vendor/waypoints.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/meanmenu.js') }}"></script>
+    <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/backToTop.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.fancybox.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/countdown.js') }}"></script>
+    <script src="{{ asset('frontend/js/nice-select.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-ui-slider-range.js') }}"></script>
+    <script src="{{ asset('frontend/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('frontend/js/wow.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/main.js') }}"></script>
+</body>
+
 </html>

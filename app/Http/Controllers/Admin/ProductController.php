@@ -72,7 +72,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $slug = Str::slug($request->product_name, '-');
         // Image upload start here
         $thumbnail = $request->product_thumbnail;
@@ -84,7 +83,7 @@ class ProductController extends Controller
         $images = array();
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $key => $image) {
-                $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                $imageName = hexdec(uniqid()) . '.' .$image->getClientOriginalExtension();
                 $image->move(public_path('files/product'), $imageName);
                 array_push($images, $imageName);
             }
@@ -127,7 +126,6 @@ class ProductController extends Controller
         // return redirect()->route('product.index')->with($notification);
     }
 
-
      // product edit method
      public function edit($id)
      {
@@ -142,6 +140,60 @@ class ProductController extends Controller
          return view('admin.products.edit', compact('data', 'cats','subcats', 'brands', 'pick_points', 'warehouses'));
      }
 
+  // Update Product 
+  public function update(Request $request)
+  {
+    // dd($request);
+      $id = $request->id;
+      $slug = Str::slug($request->product_name, '-');
+      // Image upload start here
+      $thumbnail = $request->product_thumbnail;
+      $thumbnail_name = $slug . '.' . $thumbnail->getClientOriginalExtension();
+      $thumbnail->move(public_path('files/product'), $thumbnail_name);
+      $thumbnail_url = 'files/product/' . $thumbnail_name;
+
+              // multiple image ulpload 
+              $images = array();
+              if ($request->hasFile('images')) {
+                  foreach ($request->file('images') as $key => $image) {
+                      $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+                      $image->move(public_path('files/product'), $imageName);
+                      array_push($images, $imageName);
+                  }
+              }
+
+      // Using Querybuilder
+      $data = Product::findOrFail($id);
+      $data['category_id'] = $request->category_id;
+      $data['subcategory_id'] = $request->subcategory_id;
+      $data['brand_id'] = $request->brand_id;
+      $data['product_name'] = $request->product_name;
+      $data['product_slug'] = $slug;
+      $data['product_code'] = $request->product_code;
+      $data['product_unit'] = $request->product_unit;
+      $data['product_tags'] = $request->product_tags;
+      $data['product_color'] = $request->product_color;
+      $data['product_size'] = $request->product_size;
+      $data['product_video'] = $request->product_video;
+      $data['purchase_price'] = $request->purchase_price;
+      $data['selling_price'] = $request->selling_price;
+      $data['descount_price'] = $request->descount_price;
+      $data['stock_quantity'] = $request->stock_quantity;
+      $data['warehouse'] = $request->warehouse;
+      $data['product_description'] = $request->product_description;
+      $data['product_thumbnail'] = $thumbnail_url;
+      $data['images'] = json_encode($images);
+      $data['featured'] = $request->featured;
+      $data['product_slider'] = $request->product_slider;
+      $data['status'] = $request->status;
+      $data['today_deal'] = $request->today_deal;
+      $data['cash_on_delivery'] = $request->cash_on_delivery;
+      $data['pickup_point_id'] = $request->pickup_point_id;
+
+      $data->save();
+      $notification = array('message' => 'Product updated successfully.', 'alert_type' => 'success');
+      return redirect()->route('product.index')->with($notification);
+  }
 
 
       // create category 

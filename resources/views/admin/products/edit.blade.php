@@ -19,8 +19,9 @@
 <div class="card">
     <div class="card-body">
         <!-- form start -->
-        <form action="{{ route('store.product') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('update.product') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="id" value="{{ $data->id }}">
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-8">
@@ -197,8 +198,7 @@
 
                             <div class="form-group">
                                 <label for="thumbnail">Main Thumbnail <span class="text-danger">*</span></label><br>
-                                <input type="file" class="dropify img" name="product_thumbnail" value="{{ $data->product_thumbnail }}" accept="image/*"
-                                    required>
+                                <input type="file" class="dropify img" name="product_thumbnail" value="{{ $data->product_thumbnail }}" accept="image/*">
                                     <td>
                                         <img src="{{ asset($data->product_thumbnail) }}" style="width: 80px"
                                         alt="{{ $data->product_thumbnail}}">
@@ -218,7 +218,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @foreach (explode(",",$data->images) as $item )
+                                            @foreach (json_decode($data->images, TRUE) as $item )
                                             <img src="{{ asset('files/product/'.$item) }}" style="width: 80px" alt="{{ $item }}">
                                             @endforeach
                                         </td>
@@ -244,35 +244,35 @@
 
                             <div class="card p-4">
                                 <h6>Featured Product</h6>
-                                <input type="checkbox" name="featured" value="1" checked data-bootstrap-switch
+                                <input type="checkbox" name="featured" value="1"  @if ( $data->featured ==1) checked @endif data-bootstrap-switch
                                     data-off-color="danger" data-on-color="success">
                             </div>
 
                             <div class="card p-4">
                                 <h6> Today Deal</h6>
-                                <input type="checkbox" name="today_deal" value="1" checked data-bootstrap-switch
+                                <input type="checkbox" name="today_deal" value="1" @if ( $data->today_deal ==1) checked @endif data-bootstrap-switch
                                     data-off-color="danger" data-on-color="success">
                             </div>
 
                             <div class="card p-4">
                                 <h6> Slider Product </h6>
-                                <input type="checkbox" name="product_slider" value="1" data-bootstrap-switch
+                                <input type="checkbox" name="product_slider" value="1"  @if ( $data->product_slider ==1) checked @endif  data-bootstrap-switch
                                     data-off-color="danger" data-on-color="success">
                             </div>
 
                             <div class="card p-4">
                                 <h6> Status</h6>
-                                <input type="checkbox" name="status" value="1" checked data-bootstrap-switch
+                                <input type="checkbox" name="status" value="1"  @if ( $data->status ==1) checked @endif data-bootstrap-switch
                                     data-off-color="danger" data-on-color="success">
                             </div>
                             <div class="card p-4">
                                 <h6> product trendy</h6>
-                                <input type="checkbox" name="trendy" value="1" checked data-bootstrap-switch
+                                <input type="checkbox" name="trendy" value="1"  @if ( $data->trendy ==1) checked @endif data-bootstrap-switch
                                     data-off-color="danger" data-on-color="success">
                             </div>
                             <div class="card p-4">
                                 <h6> Cash on delivery </h6>
-                                <input type="checkbox" name="cash_on_delivery" value="1" checked
+                                <input type="checkbox" name="cash_on_delivery" value="1"  @if ( $data->cash_on_delivery ==1) checked @endif
                                     data-bootstrap-switch data-off-color="danger" data-on-color="success">
                             </div>
 

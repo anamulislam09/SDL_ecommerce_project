@@ -53,8 +53,8 @@
             <!-- Content Wrapper. Contains page content -->
             @yield('admin_content')
 
-        </div><!-- /.container-fluid -->
-        </section>
+        {{-- </div><!-- /.container-fluid -->
+        </section> --}}
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
