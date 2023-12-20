@@ -34,7 +34,6 @@
     <main>
         @yield('frontend_content')
     </main>
-
     <!-- footer area start -->
     @include('layouts.frontend_partial.footer')
 

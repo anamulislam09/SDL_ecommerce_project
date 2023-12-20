@@ -45,7 +45,12 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+// admin login 
+    public function adminLogin(){
+        return view('auth.admin-login');
+       }
 
+       // login
     public function login(Request $request){
         $request->validate([
            'email' => 'required|email',
@@ -56,14 +61,11 @@ class AuthenticatedSessionController extends Controller
            if(auth()->user()->is_admin==1){
                return redirect()->route('admin.home');
            }else{
-               return redirect()->route('dashboard');
+               return redirect()->route('frontend.index');
            }
        }else{
            return redirect()->back()->with('error','Invalid email or password');
        }
    }
 
-   public function adminLogin(){
-    return view('auth.admin-login');
-   }
 }

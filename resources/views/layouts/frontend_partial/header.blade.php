@@ -20,9 +20,22 @@
                     <div class="col-xl-6 col-lg-6 col-md-7">
                         <div class="header__action d-flex justify-content-center justify-content-md-end">
                             <ul>
-                                <li><a href="#">My Account</a></li>
                                 <li><a href="#">My Wishlist</a></li>
-                                <li><a href="#">Sign In</a></li>
+                                @guest
+                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#login">Sign In</a> </li>
+                                @else
+                                <li><a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">{{Auth::user()->name}}</a>
+                                    <ul class="dropdown-menu">
+                                          <li><a href="#">Profile</a></li>
+                                          <li><a href="#">Setings</a></li>
+                                          <li><a href="#">Order List</a></li>
+                                          <li><a href="{{route('customer.logout')}}">Logout</a></li>
+                                        </ul></li>
+                                      {{-- <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                      <li><a class="dropdown-item" href="#">Link 3</a></li> --}}
+                                  
+                                </li>
+                              @endguest
                                 <li><a href="#">Compare</a></li>
                             </ul>
                         </div>
@@ -247,3 +260,47 @@
 <!-- offcanvas area end -->      
 <div class="body-overlay"></div>
 <!-- offcanvas area end -->
+
+ <!-- Login Modal start here -->
+ <div class="modal fade" id="login" tabindex="-1" role="dialog"
+ aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
+       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <form action="{{ route('login') }}" method="POST">
+         @csrf
+         <div class="mb-3 mt-3">
+           <label for="email" class="form-label">Email:</label>
+           <input type="text" class="form-control @error('email') is-invalid @enderror"
+             name="email" placeholder="Enter  your email">
+         </div>
+         @error('email')
+           <div class="alert alert-danger">{{ $message }}</div>
+         @enderror
+
+         <div class="mb-3 mt-3">
+           <label for="password" class="form-label">Password:</label>
+           <input type="password" class="form-control @error('password') is-invalid @enderror"
+             name="password" placeholder="Enter  your password">
+         </div>
+         @error('password')
+           <div class="alert alert-danger">{{ $message }}</div>
+         @enderror
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+       <button type="submit" class="btn btn-primary">Submit</button>
+     </div>
+     </form>
+   </div>
+ </div>
+</div>
+<!-- Login Modal ends here -->
+
+<script src="{{ asset('frontend/js/vendor/jquery-3.6.0.min.js') }}"></script>
