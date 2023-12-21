@@ -13,53 +13,24 @@
                                 <nav id="mobile-menu">
                                     <ul>
                                         <li>
-                                            <a href="product.html">All Categories <i class="far fa-angle-down"></i></a>
+                                            <a href="#">All Categories <i class="far fa-angle-down"></i></a>
                                             <ul class="mega-menu">
-                                                <li><a href="product.html">Shop Pages</a>
+                                                @foreach ($cats as $item)
+                                                <li><a href="">{{$item->category_name}}</a>
+                                                    @php
+                                                         $sub_cats = DB::table('subcategories')->where('category_id',$item->id)->get();
+                                                    @endphp
                                                     <ul class="mega-item">
-                                                        <li><a href="product-details.html">Standard SHop Page</a></li>
-                                                        <li><a href="product-details.html">Shop Right Sidebar</a></li>
-                                                        <li><a href="product-details.html">Shop Left Sidebar</a></li>
-                                                        <li><a href="product-details.html">Shop 3 Column</a></li>
-                                                        <li><a href="product-details.html">Shop 4 Column</a></li>
+                                                        @foreach ($sub_cats as $data)
+                                                        <li><a href="product-details.html">{{$data->sub_category_name}}</a></li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
-                                                <li><a href="product.html">Product Pages</a>
-                                                    <ul class="mega-item">
-                                                        <li><a href="product-details.html">Product Details</a></li>
-                                                        <li><a href="product-details.html">Product V2</a></li>
-                                                        <li><a href="product-details.html">Product V3</a></li>
-                                                        <li><a href="product-details.html">Varriable Product</a></li>
-                                                        <li><a href="product-details.html">External Product</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="product.html">Other Pages</a>
-                                                    <ul class="mega-item">
-                                                        <li><a href="product-details.html">wishlist</a></li>
-                                                        <li><a href="product-details.html">Shopping Cart</a></li>
-                                                        <li><a href="product-details.html">Checkout</a></li>
-                                                        <li><a href="product-details.html">Login</a></li>
-                                                        <li><a href="product-details.html">Register</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="product.html">Phone & Tablets</a>
-                                                    <ul class="mega-item">
-                                                        <li><a href="product-details.html">Catagory 1</a></li>
-                                                        <li><a href="product-details.html">Catagory 2</a></li>
-                                                        <li><a href="product-details.html">Catagory 3</a></li>
-                                                        <li><a href="product-details.html">Catagory 4</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="product.html">Phone & Tablets</a>
-                                                    <ul class="mega-item">
-                                                        <li><a href="product-details.html">Catagory 1</a></li>
-                                                        <li><a href="product-details.html">Catagory 2</a></li>
-                                                        <li><a href="product-details.html">Catagory 3</a></li>
-                                                        <li><a href="product-details.html">Catagory 4</a></li>
-                                                    </ul>
-                                                </li>
+                                                @endforeach
                                             </ul>
                                         </li>
+                                        
+
                                         <li>
                                             <a href="product.html">Best Seller Products
                                                 <span class="cat-label">hot!</span>
@@ -98,9 +69,11 @@
                 </div>
                 <div class="col-xl-10 custom-col-10 col-lg-12">
                     <div class="slider__inner slider-active">
+                        @foreach ($slide_product as $item)
                         <div class="single-slider w-img">
-                            <img src="{{ asset('frontend/img/slider/03/slider-01.jpg')}}" alt="slider">
+                            <img src="{{ asset($item->product_thumbnail) }}" class="slide_product" alt="{{ asset($item->product_thumbnail) }}">
                         </div>
+                        @endforeach
                         <div class="single-slider w-img">
                             <img src="{{ asset('frontend/img/slider/03/slider-02.jpg') }}" alt="slider">
                         </div>

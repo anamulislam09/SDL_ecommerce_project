@@ -1,3 +1,7 @@
+  
+  @php
+      $cats = DB::table('categories')->get();
+  @endphp
   <!-- back to top start -->
   <div class="progress-wrap">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -20,7 +24,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-7">
                         <div class="header__action d-flex justify-content-center justify-content-md-end">
                             <ul>
-                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="{{route('wishlist')}}">My Wishlist</a></li>
                                 @guest
                                 <li><a href="#" data-bs-toggle="modal" data-bs-target="#login">Sign In</a> </li>
                                 @else
@@ -31,9 +35,6 @@
                                           <li><a href="#">Order List</a></li>
                                           <li><a href="{{route('customer.logout')}}">Logout</a></li>
                                         </ul></li>
-                                      {{-- <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                      <li><a class="dropdown-item" href="#">Link 3</a></li> --}}
-                                  
                                 </li>
                               @endguest
                                 <li><a href="#">Compare</a></li>
@@ -49,7 +50,7 @@
                     <div class="col-xl-4 col-lg-3 col-md-3">
                         <div class="header__info-left d-flex justify-content-center justify-content-sm-between align-items-center">
                             <div class="logo">
-                                <a href="index.html"><img src="{{ asset('frontend/img/logo/logo-black.png')}}" alt="logo"></a>
+                                <a href="/"><img src="{{ asset('frontend/img/logo/logo-black.png')}}" alt="logo"></a>
                             </div>
                             <div class="header__hotline align-items-center d-none d-sm-flex  d-lg-none d-xl-flex">
                                 <div class="header__hotline-icon">
@@ -71,19 +72,17 @@
                                         <button type="submit">Search</button>
                                     </div>
                                     <div class="header__search-cat">
+                                        
                                         <select>
-                                            <option>All Categories</option>
-                                            <option>Best Seller Products</option>
-                                            <option>Top 10 Offers</option>
-                                            <option>New Arrivals</option>
-                                            <option>Phones & Tablets</option>
-                                            <option>Electronics & Digital</option>
-                                            <option>Fashion & Clothings</option>
-                                            <option>Jewelry & Watches</option>
-                                            <option>Health & Beauty</option>
-                                            <option>Sound & Speakers</option>
-                                            <option>TV & Audio</option>
-                                            <option>Computers</option>
+                                            @foreach ($cats as $item )
+                                            @php
+                                               $cats = DB::table('subcategories')->where('category_id',$item->id)->get(); 
+                                            @endphp
+                                            <option>
+                                                <a href="">{{$item->category_name}}</a>
+                                            </option>
+                                            
+                                            @endforeach
                                         </select>
                                     </div>
                                 </form>
@@ -155,38 +154,15 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="index.html">Home <i class="far fa-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="index.html">Home Style 1</a></li>
-                                            <li><a href="index-2.html">Home Style 2</a></li>
-                                            <li><a href="index-3.html">Home Style 3</a></li>
-                                            <li><a href="index-4.html">Home Style 4</a></li>
-                                        </ul>
+                                        <a href="/">Home</a>
                                     </li>
-                                    <li><a href="product.html">Features <i class="far fa-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="product.html">Product Type</a></li>
-                                            <li><a href="product.html">Product Features <i class="far fa-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="product-details.html">Simple Product</a></li>
-                                                    <li><a href="product-details-config.html">Configurable Product</a></li>
-                                                    <li><a href="product-details-group.html">Group Product</a></li>
-                                                    <li><a href="product-details-download.html">Downloadable Product</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="product.html">Shop By Brand</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="{{route('products')}}">Simple Product</a></li>
                                     <li>
-                                        <a href="blog.html">Blog <i class="far fa-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-detaills.html">Blog Details</a></li>
-                                        </ul>
+                                        <a href="blog.html">Blog</a>
                                     </li>
-                                    <li><a href="about.html">about us</a></li>
-                                    <li><a href="contact.html">contact</a></li>
-                                    <li>
+                                    <li><a href="{{route('about')}}">about us</a></li>
+                                    <li><a href="{{route('contact')}}">contact</a></li>
+                                    {{-- <li>
                                         <a href="about.html">pages <i class="far fa-angle-down"></i></a>
                                         <ul class="submenu">
                                             <li><a href="login.html">Login</a></li>
@@ -196,7 +172,7 @@
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="error.html">404 Error</a></li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </nav>
                         </div>
@@ -206,10 +182,7 @@
                         <div class="header__bottom-right d-flex justify-content-end">
                             <div class="header__currency">
                                 <select>
-                                    <option>USD</option>
-                                    <option>USD</option>
-                                    <option>USD</option>
-                                    <option>USD</option>
+                                    <option>BDT</option>
                                     <option>USD</option>
                                 </select>
                             </div>
@@ -217,9 +190,6 @@
                                 <select>
                                     <option>English</option>
                                     <option>Bangla</option>
-                                    <option>Arabic</option>
-                                    <option>Hindi</option>
-                                    <option>Urdu</option>
                                 </select>
                             </div>
                         </div>
@@ -294,8 +264,10 @@
          @enderror
      </div>
      <div class="modal-footer">
-       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-       <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{ route('register') }}" class="btn btn-outline-success">Register!</a>
+       {{-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> --}}
+       <button type="submit" class="btn btn-primary">Login</button>
+       
      </div>
      </form>
    </div>

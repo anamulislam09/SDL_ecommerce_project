@@ -6,14 +6,6 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/login', function () {
     // return redirect()->to('');
     return redirect()->back();
@@ -25,5 +17,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/logout', [IndexController::class, 'logout'])->name('customer.logout');
+Route::get('/wishlist', [IndexController::class, 'wishlist'])->name('wishlist');
+Route::get('/products', [IndexController::class, 'products'])->name('products');
+Route::get('/blog', [IndexController::class, 'blog'])->name('blog');
+Route::get('/about', [IndexController::class, 'about'])->name('about');
+Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
+
 
