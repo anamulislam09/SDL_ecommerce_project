@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('frontend_content')
-
     <!-- slider area satrt -->
     <section class="slider__area pt-30 grey-bg">
         <div class="container">
@@ -8,7 +7,8 @@
                 <div class="col-xl-2 custom-col-2 d-none d-xl-block">
                     <div class="cat__menu-wrapper">
                         <div class="cat-toggle">
-                            <button type="button" class="cat-toggle-btn"><i class="fas fa-bars"></i> Shop by department</button>
+                            <button type="button" class="cat-toggle-btn"><i class="fas fa-bars"></i> Shop by
+                                department</button>
                             <div class="cat__menu">
                                 <nav id="mobile-menu">
                                     <ul>
@@ -16,21 +16,23 @@
                                             <a href="#">All Categories <i class="far fa-angle-down"></i></a>
                                             <ul class="mega-menu">
                                                 @foreach ($cats as $item)
-                                                <li><a href="">{{$item->category_name}}</a>
-                                                    @php
-                                                         $sub_cats = DB::table('subcategories')->where('category_id',$item->id)->get();
-                                                    @endphp
-                                                    <ul class="mega-item">
-                                                        @foreach ($sub_cats as $data)
-                                                        <li><a href="product-details.html">{{$data->sub_category_name}}</a></li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
+                                                    <li><a href="">{{ $item->category_name }}</a>
+                                                        @php
+                                                            $sub_cats = DB::table('subcategories')
+                                                                ->where('category_id', $item->id)
+                                                                ->get();
+                                                        @endphp
+                                                        <ul class="mega-item">
+                                                            @foreach ($sub_cats as $data)
+                                                                <li><a
+                                                                        href="product-details.html">{{ $data->sub_category_name }}</a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </li>
-                                        
-
                                         <li>
                                             <a href="product.html">Best Seller Products
                                                 <span class="cat-label">hot!</span>
@@ -70,16 +72,11 @@
                 <div class="col-xl-10 custom-col-10 col-lg-12">
                     <div class="slider__inner slider-active">
                         @foreach ($slide_product as $item)
-                        <div class="single-slider w-img">
-                            <img src="{{ asset($item->product_thumbnail) }}" class="slide_product" alt="{{ asset($item->product_thumbnail) }}">
-                        </div>
+                            <div class="single-slider w-img">
+                                <img src="{{ asset($item->product_thumbnail) }}" class="slide_product"
+                                    alt="{{ asset($item->product_thumbnail) }}">
+                            </div>
                         @endforeach
-                        <div class="single-slider w-img">
-                            <img src="{{ asset('frontend/img/slider/03/slider-02.jpg') }}" alt="slider">
-                        </div>
-                        <div class="single-slider w-img">
-                            <img src="{{ asset('frontend/img/slider/03/slider-03.jpg')}}" alt="slider">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -157,17 +154,20 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="banner__item w-img mb-30">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-1.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-1.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-2.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-2.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-3.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-3.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
             </div>
@@ -186,14 +186,18 @@
                         </div>
                     </div>
                     <div class="product__deal-3 t-nav owl-carousel">
+                        @foreach ($today_deal as $item)
                         <div class="product__deal-item">
                             <div class="product__item white-bg product__sale mb-30">
                                 <div class="row">
                                     <div class="col-xl-6  col-lg-6 col-md-6 col-sm-6">
                                         <div class="product__thumb product__thumb-big p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product" />
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product" />
+                                                <img src="{{ asset($item->product_thumbnail) }}"
+                                                    alt="product" />
+                                                <img class="second-img"
+                                                    src="{{ asset($item->product_thumbnail) }}"
+                                                    alt="product" />
                                             </a>
                                             <div class="product__offer">
                                                 <span class="discount">-34%</span>
@@ -203,7 +207,8 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="product__content product__content-2">
                                             <h6 class="product-name product__deal-name">
-                                                <a class="product-item-link" href="product-details.html"> Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href=" {{ $item->id }}"> 
+                                                    {{ $item->product_name }}</a>
                                             </h6>
                                             <div class="rating rating-2">
                                                 <ul>
@@ -224,28 +229,35 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <span class="new mb-5">$120.00</span>
-                                            <span class="price-old mb-5"> <del>$125.00</del> </span>
-                                            <p class="mt-10">Typi non habent claritatem insitam, est usus legentis in iis qui facit...</p>
+
+                                            @if ($item->descount_price == null)
+                                            <span class="new mb-5">${{ $item->selling_price }}</span>
+                                          @else
+                                            <div >
+                                              <span class="price-old mb-5">${{ $item->descount_price}}</span> <del>${{ $item->selling_price}}</del>
+                                            </div>
+                                          @endif
+
+                                            {{-- <p class="mt-10">{!! substr($item->product_description, 0, 20) !!}...</p> --}}
                                             <div class="product__countdown">
                                                 <h4>Hurry Up! Offer ends in:</h4>
                                                 <div class="countdown-wrapper">
                                                     <div data-countdown data-date="Dec 02 2022 20:20:22">
                                                         <ul>
                                                             <li>
-                                                                <span data-days>0</span> 
+                                                                <span data-days>0</span>
                                                                 <p>Days</p>
                                                             </li>
                                                             <li>
-                                                                <span data-hours>0</span> 
-                                                                <p>Hours</p> 
+                                                                <span data-hours>0</span>
+                                                                <p>Hours</p>
                                                             </li>
                                                             <li>
-                                                                <span data-minutes>0</span> 
+                                                                <span data-minutes>0</span>
                                                                 <p>mins</p>
                                                             </li>
                                                             <li>
-                                                                <span data-seconds>0</span> 
+                                                                <span data-seconds>0</span>
                                                                 <p>secs</p>
                                                             </li>
                                                         </ul>
@@ -257,14 +269,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product__deal-item">
+                        @endforeach
+                        {{-- <div class="product__deal-item">
                             <div class="product__item white-bg  product__sale mb-30">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="product__thumb product__thumb-big p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product" />
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product" />
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product" />
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product" />
                                             </a>
                                             <div class="product__offer">
                                                 <span class="discount">-34%</span>
@@ -274,7 +290,8 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="product__content product__content-2">
                                             <h6 class="product-name product__deal-name">
-                                                <a class="product-item-link" href="product-details.html"> Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html"> Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating rating-2">
                                                 <ul>
@@ -297,26 +314,27 @@
                                             </div>
                                             <span class="new mb-5">$120.00</span>
                                             <span class="price-old mb-5"> <del>$125.00</del> </span>
-                                            <p class="mt-10">Typi non habent claritatem insitam, est usus legentis in iis qui facit...</p>
+                                            <p class="mt-10">Typi non habent claritatem insitam, est usus legentis in iis
+                                                qui facit...</p>
                                             <div class="product__countdown">
                                                 <h4>Hurry Up! Offer ends in:</h4>
                                                 <div class="countdown-wrapper">
                                                     <div data-countdown data-date="Dec 02 2022 20:20:22">
                                                         <ul>
                                                             <li>
-                                                                <span data-days>0</span> 
+                                                                <span data-days>0</span>
                                                                 <p>Days</p>
                                                             </li>
                                                             <li>
-                                                                <span data-hours>0</span> 
-                                                                <p>Hours</p> 
+                                                                <span data-hours>0</span>
+                                                                <p>Hours</p>
                                                             </li>
                                                             <li>
-                                                                <span data-minutes>0</span> 
+                                                                <span data-minutes>0</span>
                                                                 <p>mins</p>
                                                             </li>
                                                             <li>
-                                                                <span data-seconds>0</span> 
+                                                                <span data-seconds>0</span>
                                                                 <p>secs</p>
                                                             </li>
                                                         </ul>
@@ -327,7 +345,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-xl-6">
@@ -341,8 +359,11 @@
                             <div class="product__item white-bg">
                                 <div class="product__thumb p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product" />
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-2.jpg')}}" alt="product" />
+                                        <img src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                            alt="product" />
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
+                                            alt="product" />
                                     </a>
                                     <div class="product__offer">
                                         <span class="discount">-34%</span>
@@ -350,10 +371,12 @@
                                     <div class="product__action p-absolute">
                                         <ul>
                                             <li>
-                                                <a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
+                                                <a href="#" title="Add to Wishlist"><i
+                                                        class="fal fa-heart"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
+                                                <a href="#" title="Quick View" data-bs-toggle="modal"
+                                                    data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
                                             </li>
                                             <li>
                                                 <a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
@@ -363,7 +386,8 @@
                                 </div>
                                 <div class="product__content text-center">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html"> High Quality Glass Ultra-Thin Kitchen Scale</a>
+                                        <a class="product-item-link" href="product-details.html"> High Quality Glass
+                                            Ultra-Thin Kitchen Scale</a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -390,14 +414,17 @@
                                     <button type="button">Add to Cart</button>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="product__electronic-item">
                             <div class="product__item white-bg">
                                 <div class="product__thumb p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-3.jpg')}}" alt="product" />
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product" />
+                                        <img src="{{ asset('frontend/img/shop/product/product-3.jpg') }}"
+                                            alt="product" />
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                            alt="product" />
                                     </a>
                                     <div class="product__offer">
                                         <span class="discount">-34%</span>
@@ -405,10 +432,12 @@
                                     <div class="product__action p-absolute">
                                         <ul>
                                             <li>
-                                                <a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
+                                                <a href="#" title="Add to Wishlist"><i
+                                                        class="fal fa-heart"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
+                                                <a href="#" title="Quick View" data-bs-toggle="modal"
+                                                    data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
                                             </li>
                                             <li>
                                                 <a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
@@ -418,7 +447,8 @@
                                 </div>
                                 <div class="product__content text-center">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html"> LG 27UD58: £347.21, Ebuyer.com </a>
+                                        <a class="product-item-link" href="product-details.html"> LG 27UD58: £347.21,
+                                            Ebuyer.com </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -450,8 +480,11 @@
                             <div class="product__item white-bg">
                                 <div class="product__thumb p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product" />
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product" />
+                                        <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                            alt="product" />
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                            alt="product" />
                                     </a>
                                     <div class="product__offer">
                                         <span class="discount">-34%</span>
@@ -459,10 +492,12 @@
                                     <div class="product__action p-absolute">
                                         <ul>
                                             <li>
-                                                <a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
+                                                <a href="#" title="Add to Wishlist"><i
+                                                        class="fal fa-heart"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
+                                                <a href="#" title="Quick View" data-bs-toggle="modal"
+                                                    data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
                                             </li>
                                             <li>
                                                 <a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
@@ -472,7 +507,8 @@
                                 </div>
                                 <div class="product__content text-center">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html"> Samsung C49J89: £875, Debenhams Plus </a>
+                                        <a class="product-item-link" href="product-details.html"> Samsung C49J89: £875,
+                                            Debenhams Plus </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -504,8 +540,11 @@
                             <div class="product__item white-bg">
                                 <div class="product__thumb p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product" />
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product" />
+                                        <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                            alt="product" />
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                            alt="product" />
                                     </a>
                                     <div class="product__offer">
                                         <span class="discount">-34%</span>
@@ -513,10 +552,12 @@
                                     <div class="product__action p-absolute">
                                         <ul>
                                             <li>
-                                                <a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
+                                                <a href="#" title="Add to Wishlist"><i
+                                                        class="fal fa-heart"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
+                                                <a href="#" title="Quick View" data-bs-toggle="modal"
+                                                    data-bs-target="#productModalId"><i class="fal fa-search"></i></a>
                                             </li>
                                             <li>
                                                 <a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
@@ -526,7 +567,8 @@
                                 </div>
                                 <div class="product__content text-center">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html"> Blink Home Security Camera System 01 </a>
+                                        <a class="product-item-link" href="product-details.html"> Blink Home Security
+                                            Camera System 01 </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -580,13 +622,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-8.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                        <a class="product-item-link" href="product-details.html">Smart Mobile Phone
+                                            7/7plus/8/8plus/X/Xr W </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -604,13 +649,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-1.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                        <a class="product-item-link" href="product-details.html">Portable Watch Phone with
+                                            Blood Pressure Monitor OLED</a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -630,13 +678,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-7.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                        <a class="product-item-link" href="product-details.html">New Model Watch Mobile
+                                            with Bpm Function 1.14" IPS LCD IP68</a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -654,13 +705,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-24.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                        <a class="product-item-link" href="product-details.html">Original Mobile Android
+                                            Dual SIM Smart Phone G3 </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -680,13 +734,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-18.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-18.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">TF Camera Clock Support Bt 4.0 for Ios Android Round Watch </a>
+                                        <a class="product-item-link" href="product-details.html">TF Camera Clock Support
+                                            Bt 4.0 for Ios Android Round Watch </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -704,13 +761,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-22.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-22.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-1.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html"> 24 Inch LCD Monitor with Touch Screen for Computer Display </a>
+                                        <a class="product-item-link" href="product-details.html"> 24 Inch LCD Monitor with
+                                            Touch Screen for Computer Display </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -730,13 +790,15 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-2.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-2.jpg') }}" alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-4.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch Advertising LCD Display Monitor </a>
+                                        <a class="product-item-link" href="product-details.html">Capacitive Touch Screen
+                                            22 Inch Advertising LCD Display Monitor </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -754,13 +816,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-11.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html"> Original Smart Phone for Original for iPhone 6s </a>
+                                        <a class="product-item-link" href="product-details.html"> Original Smart Phone for
+                                            Original for iPhone 6s </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -780,13 +845,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-7.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                        <a class="product-item-link" href="product-details.html">New Model Watch Mobile
+                                            with Bpm Function 1.14" IPS LCD IP68</a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -804,13 +872,16 @@
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
                                     <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                        <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                        <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                            alt="product">
+                                        <img class="second-img"
+                                            src="{{ asset('frontend/img/shop/product/product-24.jpg') }}" alt="product">
                                     </a>
                                 </div>
                                 <div class="product__content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                        <a class="product-item-link" href="product-details.html">Original Mobile Android
+                                            Dual SIM Smart Phone G3 </a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -839,12 +910,14 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-4.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-4.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-5.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-5.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
             </div>
@@ -864,18 +937,26 @@
                         <div class="product__nav-tab product__nav-tab-3 mr-75">
                             <ul class="nav nav-tabs" id="desktipTO" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link active" id="deskto-tab" data-bs-toggle="tab" data-bs-target="#deskto" type="button" role="tab" aria-controls="deskto" aria-selected="true">Desktop & Computer</button>
+                                    <button class="nav-link active" id="deskto-tab" data-bs-toggle="tab"
+                                        data-bs-target="#deskto" type="button" role="tab" aria-controls="deskto"
+                                        aria-selected="true">Desktop & Computer</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="tv-tab" data-bs-toggle="tab" data-bs-target="#tv" type="button" role="tab" aria-controls="tv" aria-selected="false">TV & Audios</button>
+                                    <button class="nav-link" id="tv-tab" data-bs-toggle="tab" data-bs-target="#tv"
+                                        type="button" role="tab" aria-controls="tv" aria-selected="false">TV &
+                                        Audios</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="laptop-tab" data-bs-toggle="tab" data-bs-target="#laptop" type="button" role="tab" aria-controls="laptop" aria-selected="false">Laptop Accessories</button>
+                                    <button class="nav-link" id="laptop-tab" data-bs-toggle="tab"
+                                        data-bs-target="#laptop" type="button" role="tab" aria-controls="laptop"
+                                        aria-selected="false">Laptop Accessories</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="lenovo-tab" data-bs-toggle="tab" data-bs-target="#lenovo" type="button" role="tab" aria-controls="lenovo" aria-selected="false">Lenovo</button>
+                                    <button class="nav-link" id="lenovo-tab" data-bs-toggle="tab"
+                                        data-bs-target="#lenovo" type="button" role="tab" aria-controls="lenovo"
+                                        aria-selected="false">Lenovo</button>
                                 </li>
-                              </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -884,25 +965,31 @@
                 <div class="col-xl-2 custom-col-2-2 ">
                     <div class="banner__area">
                         <div class="banner__item mb-20 w-img">
-                            <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-sm-1.jpg')}}" alt="" /></a>
+                            <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-sm-1.jpg') }}"
+                                    alt="" /></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-10 custom-col-10-2">
                     <div class="tab-content" id="desktop-content">
-                        <div class="tab-pane fade show active" id="deskto" role="tabpanel" aria-labelledby="deskto-tab">
+                        <div class="tab-pane fade show active" id="deskto" role="tabpanel"
+                            aria-labelledby="deskto-tab">
                             <div class="product__desktop-slider-3 t-nav owl-carousel">
                                 <div class="product__item-wrapper">
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -920,13 +1007,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -946,13 +1037,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html">Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -970,13 +1065,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch LCD Display Monitor</a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive Touch
+                                                    Screen 22 Inch LCD Display Monitor</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -996,13 +1095,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">High Quality Glass Ultra-Thin Kitchen Scale</a>
+                                                <a class="product-item-link" href="product-details.html">High Quality
+                                                    Glass Ultra-Thin Kitchen Scale</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1020,13 +1123,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung C49J89: £875, Debenhams Plus</a>
+                                                <a class="product-item-link" href="product-details.html">Samsung C49J89:
+                                                    £875, Debenhams Plus</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1046,13 +1153,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1070,13 +1181,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1100,13 +1215,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1124,13 +1243,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1150,13 +1273,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html">Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1174,13 +1301,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch LCD Display Monitor</a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive
+                                                    Touch Screen 22 Inch LCD Display Monitor</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1200,13 +1331,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">High Quality Glass Ultra-Thin Kitchen Scale</a>
+                                                <a class="product-item-link" href="product-details.html">High Quality
+                                                    Glass Ultra-Thin Kitchen Scale</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1224,13 +1359,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung C49J89: £875, Debenhams Plus</a>
+                                                <a class="product-item-link" href="product-details.html">Samsung C49J89:
+                                                    £875, Debenhams Plus</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1250,13 +1389,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1274,13 +1417,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1304,13 +1451,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1328,13 +1479,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1354,13 +1509,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html">Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1378,13 +1537,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch LCD Display Monitor</a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive
+                                                    Touch Screen 22 Inch LCD Display Monitor</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1404,13 +1567,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">High Quality Glass Ultra-Thin Kitchen Scale</a>
+                                                <a class="product-item-link" href="product-details.html">High Quality
+                                                    Glass Ultra-Thin Kitchen Scale</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1428,13 +1595,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung C49J89: £875, Debenhams Plus</a>
+                                                <a class="product-item-link" href="product-details.html">Samsung C49J89:
+                                                    £875, Debenhams Plus</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1454,13 +1625,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1478,13 +1653,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1508,13 +1687,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1532,13 +1715,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1558,13 +1745,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html">Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1582,13 +1773,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch LCD Display Monitor</a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive
+                                                    Touch Screen 22 Inch LCD Display Monitor</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1608,13 +1803,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">High Quality Glass Ultra-Thin Kitchen Scale</a>
+                                                <a class="product-item-link" href="product-details.html">High Quality
+                                                    Glass Ultra-Thin Kitchen Scale</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1632,13 +1831,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung C49J89: £875, Debenhams Plus</a>
+                                                <a class="product-item-link" href="product-details.html">Samsung C49J89:
+                                                    £875, Debenhams Plus</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1658,13 +1861,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-14.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1682,13 +1889,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-17.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-16.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-17.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1725,16 +1936,24 @@
                         <div class="product__nav-tab product__nav-tab-3 mr-75">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home Appliances</button>
+                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                        data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                        aria-selected="true">Home Appliances</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="storage-tab" data-bs-toggle="tab" data-bs-target="#storage" type="button" role="tab" aria-controls="storage" aria-selected="false">Storage Devices</button>
+                                    <button class="nav-link" id="storage-tab" data-bs-toggle="tab"
+                                        data-bs-target="#storage" type="button" role="tab"
+                                        aria-controls="storage" aria-selected="false">Storage Devices</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="electrical-tab" data-bs-toggle="tab" data-bs-target="#electrical" type="button" role="tab" aria-controls="electrical" aria-selected="false">Electrical Kettle</button>
+                                    <button class="nav-link" id="electrical-tab" data-bs-toggle="tab"
+                                        data-bs-target="#electrical" type="button" role="tab"
+                                        aria-controls="electrical" aria-selected="false">Electrical Kettle</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="mobile-tab" data-bs-toggle="tab" data-bs-target="#mobile" type="button" role="tab" aria-controls="mobile" aria-selected="false">Mobile Phones</button>
+                                    <button class="nav-link" id="mobile-tab" data-bs-toggle="tab"
+                                        data-bs-target="#mobile" type="button" role="tab"
+                                        aria-controls="mobile" aria-selected="false">Mobile Phones</button>
                                 </li>
                             </ul>
                         </div>
@@ -1744,19 +1963,24 @@
             <div class="row">
                 <div class="col-xl-10 custom-col-10-2">
                     <div class="tab-content" id="phone-content">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel"
+                            aria-labelledby="home-tab">
                             <div class="product__phone-slider-3 t-nav owl-carousel">
                                 <div class="product__item-wrapper">
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V 8GB 4G LTE 5" Prepaid Smartphone </a>
+                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V
+                                                    8GB 4G LTE 5" Prepaid Smartphone </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1774,13 +1998,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS (64GB) - Space Gray - [Locked key] </a>
+                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS
+                                                    (64GB) - Space Gray - [Locked key] </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1800,13 +2028,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1824,13 +2056,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1850,13 +2086,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-10.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-10.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">LG 27UD58: £347.21, Ebuyer.com </a>
+                                                <a class="product-item-link" href="product-details.html">LG 27UD58:
+                                                    £347.21, Ebuyer.com </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1874,13 +2114,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Dell U2717D: £434.99, Scan.co.uk </a>
+                                                <a class="product-item-link" href="product-details.html">Dell U2717D:
+                                                    £434.99, Scan.co.uk </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1900,13 +2144,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1924,13 +2172,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1954,13 +2206,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V 8GB 4G LTE 5" Prepaid Smartphone </a>
+                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V
+                                                    8GB 4G LTE 5" Prepaid Smartphone </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -1978,13 +2234,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS (64GB) - Space Gray - [Locked key] </a>
+                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS
+                                                    (64GB) - Space Gray - [Locked key] </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2004,13 +2264,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2028,13 +2292,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2054,13 +2322,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-10.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-10.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">LG 27UD58: £347.21, Ebuyer.com </a>
+                                                <a class="product-item-link" href="product-details.html">LG 27UD58:
+                                                    £347.21, Ebuyer.com </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2078,13 +2350,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Dell U2717D: £434.99, Scan.co.uk </a>
+                                                <a class="product-item-link" href="product-details.html">Dell U2717D:
+                                                    £434.99, Scan.co.uk </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2104,13 +2380,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2128,13 +2408,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2158,13 +2442,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V 8GB 4G LTE 5" Prepaid Smartphone </a>
+                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V
+                                                    8GB 4G LTE 5" Prepaid Smartphone </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2182,13 +2470,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS (64GB) - Space Gray - [Locked key] </a>
+                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS
+                                                    (64GB) - Space Gray - [Locked key] </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2208,13 +2500,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2232,13 +2528,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2258,13 +2558,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-10.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-10.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">LG 27UD58: £347.21, Ebuyer.com </a>
+                                                <a class="product-item-link" href="product-details.html">LG 27UD58:
+                                                    £347.21, Ebuyer.com </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2282,13 +2586,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Dell U2717D: £434.99, Scan.co.uk </a>
+                                                <a class="product-item-link" href="product-details.html">Dell U2717D:
+                                                    £434.99, Scan.co.uk </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2308,13 +2616,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2332,13 +2644,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2362,13 +2678,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V 8GB 4G LTE 5" Prepaid Smartphone </a>
+                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V
+                                                    8GB 4G LTE 5" Prepaid Smartphone </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2386,13 +2706,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS (64GB) - Space Gray - [Locked key] </a>
+                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS
+                                                    (64GB) - Space Gray - [Locked key] </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2412,13 +2736,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2436,13 +2764,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2462,13 +2794,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-10.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-9.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-10.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">LG 27UD58: £347.21, Ebuyer.com </a>
+                                                <a class="product-item-link" href="product-details.html">LG 27UD58:
+                                                    £347.21, Ebuyer.com </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2486,13 +2822,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-12.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Dell U2717D: £434.99, Scan.co.uk </a>
+                                                <a class="product-item-link" href="product-details.html">Dell U2717D:
+                                                    £434.99, Scan.co.uk </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2512,13 +2852,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne Commando C771 Verizon MIL-SPEC… </a>
+                                                <a class="product-item-link" href="product-details.html"> Casio G'zOne
+                                                    Commando C771 Verizon MIL-SPEC… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2536,13 +2880,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy S6 Edge+, Gold 32GB (Verizon Wire… </a>
+                                                <a class="product-item-link" href="product-details.html">Samsung Galaxy
+                                                    S6 Edge+, Gold 32GB (Verizon Wire… </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2565,7 +2913,8 @@
                 <div class="col-xl-2 custom-col-2-2">
                     <div class="banner__area">
                         <div class="banner__item mb-20 w-img">
-                            <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-sm-2.jpg')}}" alt="" /></a>
+                            <a href="product-details.html"><img
+                                    src="{{ asset('frontend/img/banner/banner-sm-2.jpg') }}" alt="" /></a>
                         </div>
                     </div>
                 </div>
@@ -2586,15 +2935,21 @@
                         <div class="product__nav-tab product__nav-tab-3 mr-75">
                             <ul class="nav nav-tabs" id="desktop-tab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link active" id="headphone-tab" data-bs-toggle="tab" data-bs-target="#headphone" type="button" role="tab" aria-controls="headphone" aria-selected="true">Headphone</button>
+                                    <button class="nav-link active" id="headphone-tab" data-bs-toggle="tab"
+                                        data-bs-target="#headphone" type="button" role="tab"
+                                        aria-controls="headphone" aria-selected="true">Headphone</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="mouse-tab" data-bs-toggle="tab" data-bs-target="#mouse" type="button" role="tab" aria-controls="mouse" aria-selected="false">Mouse</button>
+                                    <button class="nav-link" id="mouse-tab" data-bs-toggle="tab"
+                                        data-bs-target="#mouse" type="button" role="tab" aria-controls="mouse"
+                                        aria-selected="false">Mouse</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="battery-tab" data-bs-toggle="tab" data-bs-target="#battery" type="button" role="tab" aria-controls="battery" aria-selected="false">Battery Backup</button>
+                                    <button class="nav-link" id="battery-tab" data-bs-toggle="tab"
+                                        data-bs-target="#battery" type="button" role="tab"
+                                        aria-controls="battery" aria-selected="false">Battery Backup</button>
                                 </li>
-                              </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -2603,25 +2958,31 @@
                 <div class="col-xl-2 custom-col-2-2">
                     <div class="banner__area">
                         <div class="banner__item mb-20 w-img">
-                            <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-sm-3.jpg')}}" alt="" /></a>
+                            <a href="product-details.html"><img
+                                    src="{{ asset('frontend/img/banner/banner-sm-3.jpg') }}" alt="" /></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-10 custom-col-10-2">
                     <div class="tab-content" id="beauty-content">
-                        <div class="tab-pane fade show active" id="headphone" role="tabpanel" aria-labelledby="headphone-tab">
+                        <div class="tab-pane fade show active" id="headphone" role="tabpanel"
+                            aria-labelledby="headphone-tab">
                             <div class="product__beauty-slider-3 t-nav owl-carousel">
                                 <div class="product__item-wrapper">
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-23.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-23.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2639,13 +3000,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-21.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-21.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2665,13 +3030,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                                <a class="product-item-link" href="product-details.html">New Model Watch
+                                                    Mobile with Bpm Function 1.14" IPS LCD IP68</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2689,13 +3058,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html">Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2715,13 +3088,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-18.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-18.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">TF Camera Clock Support Bt 4.0 for Ios Android Round Watch </a>
+                                                <a class="product-item-link" href="product-details.html">TF Camera Clock
+                                                    Support Bt 4.0 for Ios Android Round Watch </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2739,13 +3116,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-3.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-3.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> 24 Inch LCD Monitor with Touch Screen for Computer Display </a>
+                                                <a class="product-item-link" href="product-details.html"> 24 Inch LCD
+                                                    Monitor with Touch Screen for Computer Display </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2765,13 +3146,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch Advertising LCD Display Monitor </a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive
+                                                    Touch Screen 22 Inch Advertising LCD Display Monitor </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2789,13 +3174,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html"> Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2815,13 +3204,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                                <a class="product-item-link" href="product-details.html">New Model Watch
+                                                    Mobile with Bpm Function 1.14" IPS LCD IP68</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2839,13 +3232,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html">Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2869,13 +3266,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-23.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-23.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2893,13 +3294,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-21.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-21.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2919,13 +3324,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                                <a class="product-item-link" href="product-details.html">New Model Watch
+                                                    Mobile with Bpm Function 1.14" IPS LCD IP68</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2943,13 +3352,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html">Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2969,13 +3382,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-18.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-18.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">TF Camera Clock Support Bt 4.0 for Ios Android Round Watch </a>
+                                                <a class="product-item-link" href="product-details.html">TF Camera Clock
+                                                    Support Bt 4.0 for Ios Android Round Watch </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -2993,13 +3410,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-3.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-3.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> 24 Inch LCD Monitor with Touch Screen for Computer Display </a>
+                                                <a class="product-item-link" href="product-details.html"> 24 Inch LCD
+                                                    Monitor with Touch Screen for Computer Display </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3019,13 +3440,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch Advertising LCD Display Monitor </a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive
+                                                    Touch Screen 22 Inch Advertising LCD Display Monitor </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3043,13 +3468,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html"> Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3069,13 +3498,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                                <a class="product-item-link" href="product-details.html">New Model Watch
+                                                    Mobile with Bpm Function 1.14" IPS LCD IP68</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3093,13 +3526,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html">Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3123,13 +3560,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-23.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-23.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Smart Mobile Phone 7/7plus/8/8plus/X/Xr W </a>
+                                                <a class="product-item-link" href="product-details.html">Smart Mobile
+                                                    Phone 7/7plus/8/8plus/X/Xr W </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3147,13 +3588,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-21.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-21.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Portable Watch Phone with Blood Pressure Monitor OLED</a>
+                                                <a class="product-item-link" href="product-details.html">Portable Watch
+                                                    Phone with Blood Pressure Monitor OLED</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3173,13 +3618,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                                <a class="product-item-link" href="product-details.html">New Model Watch
+                                                    Mobile with Bpm Function 1.14" IPS LCD IP68</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3197,13 +3646,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html">Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3223,13 +3676,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-18.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-18.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">TF Camera Clock Support Bt 4.0 for Ios Android Round Watch </a>
+                                                <a class="product-item-link" href="product-details.html">TF Camera Clock
+                                                    Support Bt 4.0 for Ios Android Round Watch </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3247,13 +3704,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-3.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-1.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-3.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> 24 Inch LCD Monitor with Touch Screen for Computer Display </a>
+                                                <a class="product-item-link" href="product-details.html"> 24 Inch LCD
+                                                    Monitor with Touch Screen for Computer Display </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3273,13 +3734,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-6.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-4.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Capacitive Touch Screen 22 Inch Advertising LCD Display Monitor </a>
+                                                <a class="product-item-link" href="product-details.html">Capacitive
+                                                    Touch Screen 22 Inch Advertising LCD Display Monitor </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3297,13 +3762,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-11.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-20.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-11.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html"> Original Smart Phone for Original for iPhone 6s </a>
+                                                <a class="product-item-link" href="product-details.html"> Original Smart
+                                                    Phone for Original for iPhone 6s </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3323,13 +3792,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-13.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-7.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-13.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-7.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">New Model Watch Mobile with Bpm Function 1.14" IPS LCD IP68</a>
+                                                <a class="product-item-link" href="product-details.html">New Model Watch
+                                                    Mobile with Bpm Function 1.14" IPS LCD IP68</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3347,13 +3820,17 @@
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative">
                                             <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg')}}" alt="product">
-                                                <img class="second-img" src="{{ asset('frontend/img/shop/product/product-24.jpg')}}" alt="product">
+                                                <img src="{{ asset('frontend/img/shop/product/product-15.jpg') }}"
+                                                    alt="product">
+                                                <img class="second-img"
+                                                    src="{{ asset('frontend/img/shop/product/product-24.jpg') }}"
+                                                    alt="product">
                                             </a>
                                         </div>
                                         <div class="product__content">
                                             <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Original Mobile Android Dual SIM Smart Phone G3 </a>
+                                                <a class="product-item-link" href="product-details.html">Original Mobile
+                                                    Android Dual SIM Smart Phone G3 </a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -3384,17 +3861,20 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-6.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-6.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-7.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-7.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="banner__item mb-30 w-img">
-                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-8.jpg')}}" alt=""></a>
+                        <a href="product-details.html"><img src="{{ asset('frontend/img/banner/banner-8.jpg') }}"
+                                alt=""></a>
                     </div>
                 </div>
             </div>
@@ -3420,7 +3900,7 @@
                         <div class="blog__item mb-30">
                             <div class="blog__thumb fix">
                                 <a href="blog-details.html">
-                                    <img src="{{ asset('frontend/img/blog/blog-1.jpg')}}" alt="">
+                                    <img src="{{ asset('frontend/img/blog/blog-1.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="blog__content white-bg">
@@ -3429,13 +3909,14 @@
                                     <span>Post Date:</span>
                                     <span class="date"> 01-Jul-2020</span>
                                 </div>
-                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. </p>
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae
+                                    lorem non mollis. </p>
                             </div>
                         </div>
                         <div class="blog__item mb-30">
                             <div class="blog__thumb fix">
                                 <a href="blog-details.html">
-                                    <img src="{{ asset('frontend/img/blog/blog-2.jpg')}}" alt="">
+                                    <img src="{{ asset('frontend/img/blog/blog-2.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="blog__content white-bg">
@@ -3444,13 +3925,14 @@
                                     <span>Post Date:</span>
                                     <span class="date"> 05-Aug-2020</span>
                                 </div>
-                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. </p>
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae
+                                    lorem non mollis. </p>
                             </div>
                         </div>
                         <div class="blog__item mb-30">
                             <div class="blog__thumb fix">
                                 <a href="blog-details.html">
-                                    <img src="{{ asset('frontend/img/blog/blog-3.jpg')}}" alt="">
+                                    <img src="{{ asset('frontend/img/blog/blog-3.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="blog__content white-bg">
@@ -3459,13 +3941,14 @@
                                     <span>Post Date:</span>
                                     <span class="date"> 15-Aug-2020</span>
                                 </div>
-                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. </p>
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae
+                                    lorem non mollis. </p>
                             </div>
                         </div>
                         <div class="blog__item mb-30">
                             <div class="blog__thumb fix">
                                 <a href="blog-details.html">
-                                    <img src="{{ asset('frontend/img/blog/blog-4.jpg')}}" alt="">
+                                    <img src="{{ asset('frontend/img/blog/blog-4.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="blog__content white-bg">
@@ -3474,13 +3957,14 @@
                                     <span>Post Date:</span>
                                     <span class="date"> 20-Aug-2020</span>
                                 </div>
-                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. </p>
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae
+                                    lorem non mollis. </p>
                             </div>
                         </div>
                         <div class="blog__item mb-30">
                             <div class="blog__thumb fix">
                                 <a href="blog-details.html">
-                                    <img src="{{ asset('frontend/img/blog/blog-5.jpg')}}" alt="">
+                                    <img src="{{ asset('frontend/img/blog/blog-5.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="blog__content white-bg">
@@ -3489,13 +3973,14 @@
                                     <span>Post Date:</span>
                                     <span class="date"> 25-Aug-2020</span>
                                 </div>
-                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. </p>
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae
+                                    lorem non mollis. </p>
                             </div>
                         </div>
                         <div class="blog__item mb-30">
                             <div class="blog__thumb fix">
                                 <a href="blog-details.html">
-                                    <img src="{{ asset('frontend/img/blog/blog-6.jpg')}}" alt="">
+                                    <img src="{{ asset('frontend/img/blog/blog-6.jpg') }}" alt="">
                                 </a>
                             </div>
                             <div class="blog__content white-bg">
@@ -3504,7 +3989,8 @@
                                     <span>Post Date:</span>
                                     <span class="date"> 02-Sep-2020</span>
                                 </div>
-                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. </p>
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae
+                                    lorem non mollis. </p>
                             </div>
                         </div>
                     </div>
@@ -3521,11 +4007,12 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="subscribe__content d-sm-flex align-items-center">
                         <div class="subscribe__icon mr-25">
-                            <img src="{{ asset('frontend/img/icon/icon_email.png')}}" alt="">
+                            <img src="{{ asset('frontend/img/icon/icon_email.png') }}" alt="">
                         </div>
                         <div class="subscribe__text">
                             <h4>Sign up to Newsletter</h4>
-                            <p>Get email updates about our latest shop...and receive <span>$30 Coupon For First Shopping</span></p>
+                            <p>Get email updates about our latest shop...and receive <span>$30 Coupon For First
+                                    Shopping</span></p>
                         </div>
                     </div>
                 </div>
@@ -3541,6 +4028,4 @@
         </div>
     </section>
     <!-- subscribe area end -->
-
-
 @endsection

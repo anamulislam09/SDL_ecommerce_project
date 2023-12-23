@@ -20,7 +20,8 @@ class IndexController extends Controller
     public function index(){
         $cats = Category::get();
         $slide_product = Product::where('product_slider', 1)->get();
-        return view('frontend.index', compact('cats','slide_product'));
+        $today_deal = Product::where('today_deal', 1)->get();
+        return view('frontend.index', compact('cats','slide_product','today_deal'));
     }
 
     // wishlist 

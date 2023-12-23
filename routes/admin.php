@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PickuppointController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -107,5 +108,18 @@ Route::group(['prefix' => 'warehouse'], function () {
     Route::post('/update', [PickuppointController::class, 'update'])->name('update.pickup_point');
     Route::get('/delete/{id}', [PickuppointController::class, 'destroy'])->name('pickup_point.delete');
 });
-
 });
+
+ // Settings route
+ Route::group(['prefix' => 'setting'], function () {
+ // Pickup-point routes
+ Route::group(['prefix' => 'slider'], function () {
+    Route::get('/', [SliderController::class, 'index'])->name('slider.index');
+    Route::get('/create', [SliderController::class, 'create'])->name('slider.create');
+    Route::post('/store', [SliderController::class, 'store'])->name('store.slider');
+    Route::get('/edit/{id}', [SliderController::class, 'edit']);
+    Route::post('/update', [SliderController::class, 'update'])->name('update.slider');
+    Route::get('/delete/{id}', [SliderController::class, 'destroy'])->name('slider.delete');
+});
+});
+

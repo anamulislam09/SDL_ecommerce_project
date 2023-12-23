@@ -75,9 +75,9 @@
                                         
                                         <select>
                                             @foreach ($cats as $item )
-                                            @php
+                                            {{-- @php
                                                $cats = DB::table('subcategories')->where('category_id',$item->id)->get(); 
-                                            @endphp
+                                            @endphp --}}
                                             <option>
                                                 <a href="">{{$item->category_name}}</a>
                                             </option>

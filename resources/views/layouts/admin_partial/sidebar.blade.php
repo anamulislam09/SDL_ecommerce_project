@@ -80,22 +80,28 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-circle"></i>
                         <p>
-                            Level 1
+                            Settings
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Level 2</p>
+                            <a href="{{route('slider.index')}}" class="nav-link">
+                                <i class="far fa-dot-circle nav-icon""></i>
+                                <p>Slider</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                <i class="far fa-dot-circle nav-icon""></i>
+                                <p>Review</p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-item">
+                            <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Level 2
+                                    Review
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -119,7 +125,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
