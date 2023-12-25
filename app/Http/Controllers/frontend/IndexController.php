@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -19,9 +20,13 @@ class IndexController extends Controller
     // index 
     public function index(){
         $cats = Category::get();
-        $slide_product = Product::where('product_slider', 1)->get();
-        $today_deal = Product::where('today_deal', 1)->get();
-        return view('frontend.index', compact('cats','slide_product','today_deal'));
+        $slider = Slider::where('status', 1)->get();
+        $today_deal = Product::where('today_deal', 1)->where('status', 1)->get();
+        $sales = Product::where('status', 1)->get();
+        // $computer = Product::where('category_id', 3)->where('status', 1)->get();
+        // $phones = Product::where('category_id', 2)->where('status', 1)->get();
+        // $phones_deal = Product::where('category_id', 3)->where('today_deal', 1)->where('status', 1)->first();
+        return view('frontend.index', compact('cats','slider','today_deal','sales',));
     }
 
     // wishlist 

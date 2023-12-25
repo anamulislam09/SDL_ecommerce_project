@@ -14,10 +14,8 @@
             <label for="image" class="form-label">Image:</label>
             <input type="file" class="dropify" data-height="200" name="image">
             <input type="hidden" name="old_image" value="{{ $data->image }}">
-            <img src="{{ $data->image }}" alt="" style="width: 80px">
-
+            <img src="{{asset($data->image) }}" alt="" style="width: 80px">
         </div>
-
         <div class="form-group">
             <label for="slider_name">Slider Link</label>
             <input type="url" name="link" value="{{ $data->link }}" id="" class="form-control" placeholder="Enter slider link">
@@ -26,8 +24,8 @@
             <label for="slider_name">Status</label>
            <Select name="status" class="form-control">
             <option value="" selected disabled>Select Once</option>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
+            <option value="1" @if ($data->status==1) selected @endif>Active</option>
+            <option value="0" @if ($data->status==0) selected @endif>Inactive</option>
            </Select>
         </div>
     </div>

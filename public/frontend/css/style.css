@@ -5698,3 +5698,9 @@ p.checkout-coupon input[type="text"]:focus {
 	right: 0px;
 	left: auto;
 }
+
+/* custome css */
+
+.product__content.content {
+    padding-left: 5px;
+}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\frontend\IndexController;
+use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,9 @@ Route::get('/products', [IndexController::class, 'products'])->name('products');
 Route::get('/blog', [IndexController::class, 'blog'])->name('blog');
 Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
+
+ // product details route
+ Route::get('product/product-details/{slug}', [ProductController::class, 'productDetails'])->name('product.product_details');
+
 
 

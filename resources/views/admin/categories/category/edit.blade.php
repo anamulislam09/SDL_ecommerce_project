@@ -15,7 +15,6 @@
             <input type="file" class="dropify" data-height="200" name="category_image">
             <input type="hidden" name="old_image" value="{{ $data->category_image }}">
             <img src="{{ $data->category_image }}" alt="" style="width: 80px">
-
         </div>
 
     </div>

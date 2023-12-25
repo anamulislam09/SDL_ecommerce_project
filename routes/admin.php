@@ -121,5 +121,7 @@ Route::group(['prefix' => 'warehouse'], function () {
     Route::post('/update', [SliderController::class, 'update'])->name('update.slider');
     Route::get('/delete/{id}', [SliderController::class, 'destroy'])->name('slider.delete');
 });
+
+
 });
 
