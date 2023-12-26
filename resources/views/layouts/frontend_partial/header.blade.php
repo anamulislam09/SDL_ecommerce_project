@@ -1,6 +1,7 @@
   
   @php
       $cats = DB::table('categories')->get();
+      $wishlist = DB::table('wishlists')->where('user_id',Auth::id())->count();
   @endphp
   <!-- back to top start -->
   <div class="progress-wrap">
@@ -24,7 +25,13 @@
                     <div class="col-xl-6 col-lg-6 col-md-7">
                         <div class="header__action d-flex justify-content-center justify-content-md-end">
                             <ul>
-                                <li><a href="{{route('wishlist')}}">My Wishlist</a></li>
+                                <li>
+                                    <a href="{{route('wishlist')}}"><i
+                                        class="fal fa-heart "></i> <span class="cart__total-item wishlist">{{$wishlist}}</sub></span></a>
+                                    {{-- <a href="javascript:void(0);" class="cart__toggle">
+                                        <span class="cart__total-item">{{$wishlist}}</span>
+                                    </a> --}}
+                                </li>
                                 @guest
                                 <li><a href="#" data-bs-toggle="modal" data-bs-target="#login">Sign In</a> </li>
                                 @else

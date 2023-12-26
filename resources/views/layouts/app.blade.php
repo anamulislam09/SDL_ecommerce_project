@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/ui-range-slider.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+
+    
+    <!-- toaste -->
+    <link rel="stylesheet" href="{{asset('backend/plugins/toastr/toastr.css')}}">
 </head>
 
 <body>
@@ -56,6 +60,51 @@
     <script src="{{ asset('frontend/js/wow.min.js') }}"></script>
     <script src="{{ asset('frontend/js/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <!-- toaste -->
+<script src="{{asset('backend/plugins/toastr/toastr.min.js')}}"></script>
+
+
+    <script>
+        @if (Session::has('message'))
+        var type = "{{Session::get('alert-type','info')}}"
+          switch (type) {
+            case 'info':
+              toastr.info("{{Session::get('message')}}");
+              break;
+            case 'success':
+              toastr.success("{{Session::get('message')}}");
+              break;
+            case 'warning':
+              toastr.warning("{{Session::get('message')}}");
+              break;
+            case 'error':
+              toastr.error("{{Session::get('message')}}");
+              break;
+          }
+        @endif
+      </script>
+    
+    {{-- before logout showing alert message --}}
+    <script>
+        $(document).on('click', '#logout', function(e){
+          e.preventDefault();
+          var link = $(this).attr('action');
+          swal({
+            title: "Are you want to Logout?",
+            text: "",
+            icon:"warning",
+            button:true,
+            dangerMode:true,
+          })
+          .then((willDelete) => {
+            if(willDelete){
+              window.location.href = link
+            }else{
+              swal("Not Logout");
+            }
+          });
+        });
+      </script>
 </body>
 
 </html>

@@ -74,7 +74,7 @@ class CategoryController extends Controller
             $img_url = 'files/category/' . $img_name;
             $data['category_image'] = $img_url;
         } else {
-            $data['image'] = $request->old_image;
+            $data['category_image'] = $request->old_image;
         }
         $data->save();
         $notification = array('message' => 'Category updated successfully.', 'alert_type' => 'success');

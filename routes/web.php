@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -26,8 +27,14 @@ Route::get('/blog', [IndexController::class, 'blog'])->name('blog');
 Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 
- // product details route
- Route::get('product/product-details/{slug}', [ProductController::class, 'productDetails'])->name('product.product_details');
 
 
-
+Route::group(['prefix' => 'product'], function () {
+    // product details route
+    Route::get('product-details/{slug}', [ProductController::class, 'productDetails'])->name('product.product_details');
+    // product quick view route 
+    Route::get('product_quick_view/{id}', [ProductController::class, 'productQuickView']);
+    // wishlist route 
+    Route::get('add/wishlist/{id}', [ProductController::class, 'AddWishlist'])->name('add.wishlist');
+    Route::get('add/cart/{id}', [CartController::class, 'AddToCart']);
+});

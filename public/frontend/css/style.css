@@ -5704,3 +5704,17 @@ p.checkout-coupon input[type="text"]:focus {
 .product__content.content {
     padding-left: 5px;
 }
+
+span.cart__total-item.wishlist {
+    min-width: 19px;
+    height: 19px;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    top: 1px;
+    left: 10px;
+    color: #fdfdfd;
+    background: #edaa31;
+    border-radius: 100%;
+    font-size: 10px;
+}

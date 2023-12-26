@@ -26,6 +26,7 @@ class Product extends Model
         'descount_price',
         'stock_quantity',
         'warehouse',
+        'short_description',
         'product_description',
         'product_thumbnail',
         'images',

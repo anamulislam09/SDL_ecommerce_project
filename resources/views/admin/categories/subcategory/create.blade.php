@@ -11,11 +11,11 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-lg-9 col-sm-12">
-                                        <h3 class="card-title">Add Category form</h3>
+                                        <h3 class="card-title">Add Subcategory form</h3>
                                     </div>
                                     <div class="col-lg-3 col-sm-12">
                                         <a href="{{ route('subcategory.index') }}" class="btn btn-outline-primary">All
-                                            categories</a>
+                                            Subcategories</a>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"> Category name</label>
+                                                <label for="exampleInputEmail1"> Subcategory name</label>
                                                 <input type="text" class="form-control" id="exampleInputEmail1"
                                                     name="sub_category_name" placeholder="Enter category name">
                                             </div>

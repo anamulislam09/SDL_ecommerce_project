@@ -13,7 +13,7 @@ class IndexController extends Controller
     
     public function logout(){
         Auth()->logout();
-        $notification = array('message'=>'You are logout out','alert_type'=>'danger');
+        $notification = array('message'=>'You are logout out','alert_type'=>'warning');
         return redirect()->back()->with($notification);
     }
 
@@ -34,9 +34,11 @@ class IndexController extends Controller
         return view('frontend.pages.wishlist');
     }
 
-    // products 
-    public function products(){
-        return view('frontend.products.products');
+    // show all products 
+    public function products()
+    {
+        $data = Product::where('status', 1)->get();
+        return view('frontend.products.products', compact('data'));
     }
 
     // blog 

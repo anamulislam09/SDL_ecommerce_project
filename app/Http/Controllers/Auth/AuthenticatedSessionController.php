@@ -59,9 +59,11 @@ class AuthenticatedSessionController extends Controller
 
        if(auth()->attempt(array('email' => $request->email, 'password' => $request->password))){
            if(auth()->user()->is_admin==1){
-               return redirect()->route('admin.home');
+            $notification = array('message'=>'You are logged in','alert_type'=>'success');
+               return redirect()->route('admin.home')->with($notification);
            }else{
-               return redirect()->route('frontend.index');
+            $notification = array('message'=>'You are logged in','alert_type'=>'success');
+               return redirect()->route('frontend.index')->with($notification);
            }
        }else{
            return redirect()->back()->with('error','Invalid email or password');

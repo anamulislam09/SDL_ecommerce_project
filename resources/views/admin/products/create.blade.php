@@ -192,12 +192,14 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="mb-3 mt-3">
+                    <label for="product_details" class="form-label">Product Short_description:</label>
+                    <textarea name="short_description" class="form-control"></textarea>
+                  </div> 
                   <div class="mb-3 mt-3">
                     <label for="product_details" class="form-label">Product details:</label>
                     <textarea name="product_description" id="summernote" class="form-control"></textarea>
                   </div>
-
                   {{-- <div class="form-group">
                     <label for="exampleInputPassword1">Video embade code</label>
                     <input type="link" name="product_video" class="form-control" placeholder="Enter video link" value="{{old('product_video')}}">

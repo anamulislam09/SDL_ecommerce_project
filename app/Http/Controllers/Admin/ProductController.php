@@ -106,6 +106,7 @@ class ProductController extends Controller
             'descount_price' => $request->descount_price,
             'stock_quantity' => $request->stock_quantity,
             'warehouse' => $request->warehouse,
+            'short_description' => $request->short_description,
             'product_description' => $request->product_description,
             'product_thumbnail' => $thumbnail_url,
             'images' => json_encode($images),
@@ -180,6 +181,7 @@ class ProductController extends Controller
       $data['descount_price'] = $request->descount_price;
       $data['stock_quantity'] = $request->stock_quantity;
       $data['warehouse'] = $request->warehouse;
+      $data['short_description'] = $request->short_description;
       $data['product_description'] = $request->product_description;
       $data['product_thumbnail'] = $thumbnail_url;
       $data['images'] = json_encode($images);

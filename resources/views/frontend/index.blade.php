@@ -24,8 +24,7 @@
                                                         @endphp
                                                         <ul class="mega-item">
                                                             @foreach ($sub_cats as $data)
-                                                                <li><a
-                                                                        href="product-details.html">{{ $data->sub_category_name }}</a>
+                                                                <li><a href="{{route('products',$item->category_slug )}}">{{ $data->sub_category_name }}</a>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
@@ -145,6 +144,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="features__item features__item-last d-flex white-bg">
+                        <div class="features__icon mr-15">
+                            <i class="fal fa-badge-dollar"></i>
+                        </div>
+                        <div class="features__content">
+                            <h6> Discount</h6>
+                            <p>Upto 40% Discount All Products</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -194,7 +204,7 @@
                                 <div class="row">
                                     <div class="col-xl-6  col-lg-6 col-md-6 col-sm-6">
                                         <div class="product__thumb product__thumb-big p-relative">
-                                            <a href="{{route('product.product_details',$item->id)}}" class="w-img">
+                                            <a href="{{route('product.product_details',$item->product_slug)}}" class="w-img">
                                                 <img src="{{ asset($item->product_thumbnail) }}"
                                                     alt="product" />
                                                 <img class="second-img"
@@ -209,8 +219,8 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="product__content product__content-2">
                                             <h6 class="product-name product__deal-name">
-                                                <a class="product-item-link" href=" {{ $item->id }}"> 
-                                                    {{ $item->product_name }}</a>
+                                                <a class="product-item-link" href=" {{route('product.product_details',$item->product_slug )}}"> 
+                                                    {{substr($item->product_name, 0, 20)}}</a>
                                             </h6>
                                             <div class="rating rating-2">
                                                 <ul>
@@ -298,7 +308,7 @@
                         <div class="product__item-wrapper">
                             <div class="product__item white-bg d-flex mb-20">
                                 <div class="product__thumb product__thumb-sale p-relative">
-                                    <a href="product-details.html" class="w-img">
+                                    <a href="{{route('product.product_details',$item->product_slug)}}" class="w-img">
                                         <img src="{{ asset($item->product_thumbnail) }}"
                                             alt="product">
                                         <img class="second-img"
@@ -307,38 +317,7 @@
                                 </div>
                                 <div class="product__content content">
                                     <h6 class="product-name">
-                                        <a class="product-item-link" href="{{route('product.product_details', $item->product_slug)}}">{{$item->product_name}}</a>
-                                    </h6>
-                                    <div class="rating">
-                                        <ul>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    @if ($item->descount_price == null)
-                                    <span class="new mb-5">${{ $item->selling_price }}</span>
-                                  @else
-                                    <div >
-                                      <span class="price-old mb-5">${{ $item->descount_price}}</span> <del>${{ $item->selling_price}}</del>
-                                    </div>
-                                  @endif
-                                </div>
-                            </div>
-                            <div class="product__item white-bg d-flex mb-20">
-                                <div class="product__thumb product__thumb-sale p-relative">
-                                    <a href="product-details.html" class="w-img">
-                                        <img src="{{ asset($item->product_thumbnail) }}"
-                                            alt="product">
-                                        <img class="second-img"
-                                            src="{{ asset($item->product_thumbnail) }}" alt="product">
-                                    </a>
-                                </div>
-                                <div class="product__content content">
-                                    <h6 class="product-name">
-                                        <a class="product-item-link" href="{{route('product.product_details', $item->product_slug)}}">{{$item->product_name}}</a>
+                                        <a class="product-item-link" href="{{route('product.product_details', $item->product_slug)}}">{{substr($item->product_name, 0, 20)}}</a>
                                     </h6>
                                     <div class="rating">
                                         <ul>
@@ -410,7 +389,7 @@
                 <div class="col-xl-2 custom-col-2-2 ">
                     <div class="banner__area">
                         <div class="banner__item mb-20 w-img">
-                            <a href="product-details.html"><img src="{{ asset($item->product_thumbnail) }}"
+                            <a href="{{route('product.product_details',$item->product_slug )}}"><img src="{{ asset($item->product_thumbnail) }}"
                                     alt="{{ asset($item->product_thumbnail) }}" /></a>
                         </div>
                     </div>
@@ -425,7 +404,7 @@
                                 <div class="product__item-wrapper">
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative ">
-                                            <a href="product-details.html" class="w-img">
+                                            <a href="{{route('product.product_details',$item->product_slug)}}" class="w-img">
                                                 <img src="{{ asset($item->product_thumbnail) }}"
                                                     alt="product">
                                                 <img class="second-img"
@@ -435,39 +414,7 @@
                                         </div>
                                         <div class="product__content content">
                                             <h6 class="product-name ">
-                                                <a class="product-item-link " href="product-details.html">{{$item->product_name}}</a>
-                                            </h6>
-                                            <div class="rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            @if ($item->descount_price == null)
-                                            <span class="new mb-5">${{ $item->selling_price }}</span>
-                                          @else
-                                            <div >
-                                              <span class="price-old mb-5">${{ $item->descount_price}}</span> <del>${{ $item->selling_price}}</del>
-                                            </div>
-                                          @endif
-                                        </div>
-                                    </div>
-                                    <div class="product__item white-bg d-flex mb-20">
-                                        <div class="product__thumb product__thumb-sale p-relative">
-                                            <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset($item->product_thumbnail) }}"
-                                                    alt="product">
-                                                <img class="second-img"
-                                                    src="{{ asset($item->product_thumbnail) }}"
-                                                    alt="product">
-                                            </a>
-                                        </div>
-                                        <div class="product__content content">
-                                            <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">{{$item->product_name}}</a>
+                                                <a class="product-item-link " href="{{route('product.product_details',$item->product_slug )}}">{{substr($item->product_name, 0, 20)}}</a>
                                             </h6>
                                             <div class="rating">
                                                 <ul>
@@ -497,100 +444,6 @@
         </div>
     </section>
     @endforeach
-    <!-- destop computer area end -->
-
-    <!-- desktop computer area start -->
-    {{-- <section class="product__phone pt-30 grey-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="section__head d-lg-flex justify-content-between mb-40">
-                        <div class="section__title">
-                            <h3>Phones & Tablets <span>Products</span></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-10 custom-col-10-2">
-                    <div class="tab-content" id="phone-content">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel"
-                            aria-labelledby="home-tab">
-                            <div class="product__phone-slider-3 t-nav owl-carousel">
-
-                                <div class="product__item-wrapper">
-                                    <div class="product__item white-bg d-flex mb-20">
-                                        <div class="product__thumb product__thumb-sale p-relative">
-                                            <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
-                                                    alt="product">
-                                                <img class="second-img"
-                                                    src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
-                                                    alt="product">
-                                            </a>
-                                        </div>
-                                        <div class="product__content">
-                                            <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Verizon LG K8V
-                                                    8GB 4G LTE 5" Prepaid Smartphone </a>
-                                            </h6>
-                                            <div class="rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <span class="new new-2">$720.00</span>
-                                            <span class="price-old"> <del>$800.00</del> </span>
-                                        </div>
-                                    </div>
-                                    <div class="product__item white-bg d-flex mb-20">
-                                        <div class="product__thumb product__thumb-sale p-relative">
-                                            <a href="product-details.html" class="w-img">
-                                                <img src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
-                                                    alt="product">
-                                                <img class="second-img"
-                                                    src="{{ asset('frontend/img/shop/product/product-1.jpg') }}"
-                                                    alt="product">
-                                            </a>
-                                        </div>
-                                        <div class="product__content">
-                                            <h6 class="product-name">
-                                                <a class="product-item-link" href="product-details.html">Apple iPhone XS
-                                                    (64GB) - Space Gray - [Locked key] </a>
-                                            </h6>
-                                            <div class="rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <span class="new new-2">$90.00</span>
-                                            <span class="price-old"> <del>$100.00</del> </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 custom-col-2-2">
-                    <div class="banner__area">
-                        <div class="banner__item mb-20 w-img">
-                            <a href="product-details.html"><img
-                                    src="{{ asset('frontend/img/banner/banner-sm-2.jpg') }}" alt="" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
     <!-- destop computer area end -->
 
     <!-- banner area start -->
@@ -766,4 +619,5 @@
         </div>
     </section>
     <!-- subscribe area end -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 @endsection

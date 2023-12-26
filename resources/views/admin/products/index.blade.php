@@ -34,39 +34,43 @@
                                             <th>Product_name</th>
                                             <th>Product_thumbnail</th>
                                             <th>Selling_price</th>
+                                            <th> Action </th>
                                             <th>Category_name</th>
                                             <th>SubCategory_name</th>
+                                            <th>Short_description</th>
                                             <th>Product_code</th>
                                             <th>Product_unit</th>
                                             <th>Product_tags</th>
                                             <th>Product_color</th>
                                             <th>Product_size</th>
                                             <th>Purchase_price</th>
-                                            <th> Action</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->product_name }}</td>
-                                                    <td><img src="{{ asset($item->product_thumbnail) }}" style="width: 80px"
+                                                <td><a
+                                                        href="{{ route('product.product_details', $item->product_slug) }}">{{ substr($item->product_name, 0, 30) }}</a>
+                                                </td>
+                                                <td><img src="{{ asset($item->product_thumbnail) }}" style="width: 80px"
                                                         alt="{{ $item->product_thumbnail }}"></td>
                                                 <td>{{ $item->selling_price }}</td>
+                                                <td>
+                                                    <a href="" class="btn btn-sm btn-info edit p-1"
+                                                        data-id="{{ $item->id }}" data-toggle="modal"
+                                                        data-target="#editproductModel"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('product.delete', $item->id) }}"
+                                                        class="btn btn-sm btn-danger p-1"><i class="fas fa-trash"></i></a>
+                                                </td>
                                                 <td>{{ $item->category_name }}</td>
                                                 <td>{{ $item->sub_category_name }}</td>
+                                                <td>{{ $item->short_description }}</td>
                                                 <td>{{ $item->product_code }}</td>
                                                 <td>{{ $item->product_unit }}</td>
                                                 <td>{{ $item->product_tags }}</td>
                                                 <td>{{ $item->product_color }}</td>
                                                 <td>{{ $item->product_size }}</td>
                                                 <td>{{ $item->purchase_price }}</td>
-                                                <td>
-                                                    <a href="" class="btn btn-sm btn-info edit"
-                                                        data-id="{{ $item->id }}" data-toggle="modal"
-                                                        data-target="#editproductModel"><i class="fas fa-edit"></i></a>
-                                                    <a href="{{ route('product.delete', $item->id) }}"
-                                                        class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

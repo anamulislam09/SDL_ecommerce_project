@@ -192,6 +192,11 @@
                             </div>
 
                             <div class="mb-3 mt-3">
+                                <label for="product_details" class="form-label">Product short_description:</label>
+                                <textarea name="short_description" class="form-control">{{ $data->short_description }}</textarea>
+                            </div>
+
+                            <div class="mb-3 mt-3">
                                 <label for="product_details" class="form-label">Product details:</label>
                                 <textarea name="product_description" id="summernote" class="form-control">{{ $data->product_description }}</textarea>
                             </div>
