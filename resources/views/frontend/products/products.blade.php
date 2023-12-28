@@ -244,9 +244,7 @@
                                                             <ul>
                                                                 <li><a href=" {{ route('add.wishlist', $item->id) }}" title="Add to Wishlist"><i
                                                                             class="fal fa-heart"></i></a></li>
-                                                                <li><a href="" title="Quick View" class="quick_view" id="{{ $item->id }}"                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#productModalId"><i
-                                                                            class="fal fa-search"></i></a></li>
+                                                                <li><a href="" title="Quick View" class="quick_view" id="{{ $item->id }}" data-bs-toggle="modal"  data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
                                                                 <li><a href="" title="Compare"><i
                                                                             class="far fa-sliders-h"></i></a></li>
                                                             </ul>
@@ -1307,6 +1305,7 @@
                         <button data-bs-dismiss="modal"><i class="fal fa-times"></i></button>
                     </div>
                     <div class="product__modal-inner" id="quickView">
+                        
                        
                     </div>
                 </div>
@@ -1318,7 +1317,7 @@
     <script>
         $(document).on('click', '.quick_view', function() {
           let id = $(this).attr('id');
-          // alert(id);
+        //   alert(id);
           $.get("product/product_quick_view/" + id, function(data) {
             $('#quickView').html(data);
           })

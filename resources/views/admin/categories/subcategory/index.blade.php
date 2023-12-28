@@ -26,7 +26,7 @@
                                         <tr>
                                             <th>SL</th>
                                             <th>Name</th>
-                                            <th>Sub category</th>
+                                            <th>category</th>
                                             <th> Action</th>
                                     </thead>
                                     <tbody>

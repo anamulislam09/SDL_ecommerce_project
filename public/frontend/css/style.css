@@ -5718,3 +5718,7 @@ span.cart__total-item.wishlist {
     border-radius: 100%;
     font-size: 10px;
 }
+
+span.fas.fa-star.checked {
+    color: #ff8f00;
+}

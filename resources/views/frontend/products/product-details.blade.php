@@ -1,6 +1,30 @@
 @extends('layouts.app')
 @section('frontend_content')
     <!-- product area start -->
+
+    @php
+        $rating5 = App\Models\Review::where('product_id', $data->id)
+            ->where('rating', 5)
+            ->count();
+        $rating4 = App\Models\Review::where('product_id', $data->id)
+            ->where('rating', 4)
+            ->count();
+        $rating3 = App\Models\Review::where('product_id', $data->id)
+            ->where('rating', 3)
+            ->count();
+        $rating2 = App\Models\Review::where('product_id', $data->id)
+            ->where('rating', 2)
+            ->count();
+        $rating1 = App\Models\Review::where('product_id', $data->id)
+            ->where('rating', 1)
+            ->count();
+
+        // average rating
+        $sum_rating = App\Models\Review::where('product_id', $data->id)->sum('rating');
+        $count_rating = App\Models\Review::where('product_id', $data->id)->count('rating');
+        $avg_rating = $count_rating ? $sum_rating / $count_rating : 0;
+    @endphp
+
     <section class="product__area box-plr-75 pb-70 pt-30">
         <div class="container-fluid">
             <div class="row">
@@ -15,7 +39,7 @@
                                     <button class="nav-link active" id="thumbOne-tab" data-bs-toggle="tab"
                                         data-bs-target="#thumbOne" type="button" role="tab" aria-controls="thumbOne"
                                         aria-selected="true">
-                                        <img src="{{ asset('files/product/' . $image) }}" alt="frhyrftg">
+                                        <img src="{{ asset('files/product/' . $image) }}" alt="{{ $image }}">
                                     </button>
                                 </li>
                             @endforeach
@@ -66,22 +90,36 @@
                     <div class="product__details-wrapper">
                         <div class="product__details">
                             <h3 class="product__details-title">
-                                <a href="product-details.html">{{ $data->product_name }}</a>
+                                <a href="">{{ $data->product_name }}</a>
                             </h3>
                             <div class="product__review d-sm-flex">
                                 <div class="rating rating__shop mb-15 mr-35">
                                     <ul>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                                        @if ($sum_rating == null)
+                                            <li><span class="fas fa-star "></span></li>
+                                            <li><span class="fas fa-star "></span></li>
+                                            <li><span class="fas fa-star "></span></li>
+                                            <li><span class="fas fa-star "></span></li>
+                                            <li><span class="fas fa-star "></span></li>
+                                        @elseif($sum_rating != null)
+                                            <li><span
+                                                    class="fas fa-star {{ round($sum_rating / $count_rating) >= 1 ? 'checked' : null }}"></span>
+                                            </li>
+                                            <li><span
+                                                    class="fas fa-star {{ round($sum_rating / $count_rating) >= 2 ? 'checked' : null }}"></span>
+                                            </li>
+                                            <li><span
+                                                    class="fas fa-star {{ round($sum_rating / $count_rating) >= 3 ? 'checked' : null }}"></span>
+                                            </li>
+                                            <li><span
+                                                    class="fas fa-star {{ round($sum_rating / $count_rating) >= 4 ? 'checked' : null }}"></span>
+                                            </li>
+                                            <li><span
+                                                    class="fas fa-star {{ round($sum_rating / $count_rating) >= 5 ? 'checked' : null }}"></span>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
-                                {{-- <div class="product__add-review mb-15">
-                            <span><a href="#">1 Review</a></span>
-                            <span><a href="#">Add Review</a></span>
-                            </div> --}}
                             </div>
                             <div class="product__price">
                                 @if ($data->descount_price == null)
@@ -137,7 +175,7 @@
                             </div>
                             <div class="product__details-action">
                                 <ul>
-                                    <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a></li>
+                                    <li><a href="{{ route('add.wishlist', $data->id) }}" title="Add to Wishlist"><i class="fal fa-heart"></i></a></li>
                                     <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
                                     <li><a href="#" title="Print"><i class="fal fa-print"></i></a></li>
                                     <li><a href="#" title="Print"><i class="fal fa-share-alt"></i></a></li>
@@ -159,7 +197,7 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review"
                                     type="button" role="tab" aria-controls="review" aria-selected="false">Review
-                                    5</button>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -182,59 +220,60 @@
                         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                             <div class="product__details-review">
                                 <div class="row">
+
                                     <div class="col-xxl-6 col-xl-6 col-lg-6">
                                         <div class="review-wrapper">
-                                            <h3 class="block-title">Customer Reviews</h3>
-                                            <div class="review-item">
-                                                <h3 class="review-title">Awesome product</h3>
-                                                <div class="review-ratings mb-10">
-                                                    <div class="review-ratings-single d-flex align-items-center">
-                                                        <span>Quality</span>
-                                                        <ul>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                        </ul>
+                                            <h3 class="block-title">All review of <u>{{ $data->product_name }}</u>
+                                                <span>({{ number_format($avg_rating, 1) }}) </span>
+                                            </h3>
+                                            @foreach ($review as $data)
+                                                <div class="review-item">
+                                                    @php
+                                                        $user = App\Models\User::where('id', $data->user_id)->first();
+                                                    @endphp
+                                                    {{-- <h3 class="review-title">{{ $user->name }}</h3> --}}
+                                                    <div class="review-ratings mb-10">
+                                                        <div class="review-ratings-single d-flex align-items-center">
+                                                            <span>Rating : </span>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="fas fa-star {{ $data->rating >= 1 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ $data->rating >= 2 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ $data->rating >= 3 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ $data->rating >= 4 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ $data->rating >= 5 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li class="pl-2">( {{ $data->rating }} )</li>
+
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                    <div class="review-ratings-single d-flex align-items-center">
-                                                        <span>Price</span>
-                                                        <ul>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                        </ul>
+                                                    <div class="review-text">
+                                                        <p> <strong>Details : </strong>{{ $data->review }}</p>
                                                     </div>
-                                                    <div class="review-ratings-single d-flex align-items-center">
-                                                        <span>Value</span>
-                                                        <ul>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                                        </ul>
+                                                    <div class="review-meta">
+                                                        <div class="review-author">
+                                                            <span>Review By </span>
+                                                            <span>{{ $user->name }}</span>
+                                                        </div>
+                                                        <div class="review-date">
+                                                            <span>Posted on</span>
+                                                            <span>
+                                                                ({{ date('d F , Y'), strtotime($data->review_date) }})
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="review-text">
-                                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti
-                                                        quia eligendi molestias illum libero et.</p>
-                                                </div>
-                                                <div class="review-meta">
-                                                    <div class="review-author">
-                                                        <span>Review By </span>
-                                                        <span>Shahnewaz Sakil</span>
-                                                    </div>
-                                                    <div class="review-date">
-                                                        <span>Posted on</span>
-                                                        <span>1/21/20</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="review-item">
+                                            @endforeach
+                                            {{-- <div class="review-item">
                                                 <h3 class="review-title">Nice</h3>
                                                 <div class="review-ratings mb-10">
                                                     <div class="review-ratings-single d-flex align-items-center">
@@ -331,88 +370,48 @@
                                                         <span>1/21/20</span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
+
                                     <div class="col-xxl-4 col-xl-4 col-lg-4">
                                         <div class="review-form">
                                             <h3>Your Reviewing</h3>
-                                            <p>Australian Certified Organic Royal Gala Apples</p>
-                                            <form action="#">
+                                            <p>Reviewing for {{ $data->product_name }}</p>
+                                            <form action="{{ route('store.review') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $data->id }}">
                                                 <div class="review-input-box mb-15 d-flex align-items-start">
-                                                    <h4 class="review-input-title">Your Rating</h4>
-                                                    <div class="review-input">
-                                                        <div class="review-ratings mb-10">
-                                                            <div class="review-ratings-single d-flex align-items-center">
-                                                                <span>Quality</span>
-                                                                <ul>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="review-ratings-single d-flex align-items-center">
-                                                                <span>Price</span>
-                                                                <ul>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="review-ratings-single d-flex align-items-center">
-                                                                <span>Value</span>
-                                                                <ul>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                    <li><a href="#"><i class="fas fa-star"></i></a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="review-input-box d-flex align-items-start">
-                                                    <h4 class="review-input-title">Nickname</h4>
-                                                    <div class="review-input">
-                                                        <input type="text" required>
-                                                    </div>
-                                                </div>
-                                                <div class="review-input-box d-flex align-items-start">
-                                                    <h4 class="review-input-title">Summary</h4>
-                                                    <div class="review-input">
-                                                        <input type="text" required>
+                                                    <h4 class="review-input-title">Rating</h4>
+                                                    <div class="form-group">
+                                                        <select name="rating" class="custom-select" id=""
+                                                            style="min-width:170px;">
+                                                            <option value="" selected disabled>Select your rating
+                                                            </option>
+                                                            <option value="1">1 star</option>
+                                                            <option value="2">2 star</option>
+                                                            <option value="3">3 star</option>
+                                                            <option value="4">4 star</option>
+                                                            <option value="5">5 star</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="review-input-box d-flex align-items-start">
                                                     <h4 class="review-input-title">Review</h4>
                                                     <div class="review-input">
-                                                        <textarea></textarea>
+                                                        <textarea class="form-control" name="review"></textarea>
                                                     </div>
                                                 </div>
+
                                                 <div class="review-sub-btn">
-                                                    <button type="submit" class="t-y-btn t-y-btn-grey">submit
-                                                        review</button>
+                                                    @if (Auth::check())
+                                                        <button type="submit" class="t-y-btn t-y-btn-grey">submit
+                                                            review</button>
+                                                    @else
+                                                        <p>please login first to your account for submit a review</p>
+                                                    @endif
                                                 </div>
+
                                             </form>
                                         </div>
                                     </div>
@@ -434,7 +433,7 @@
                 <div class="col-xxl-12">
                     <div class="section__head mb-40">
                         <div class="section__title">
-                            <h3>Best Selling<span>Products</span></h3>
+                            <h3>Related <span>Products</span></h3>
                         </div>
                     </div>
                 </div>
@@ -442,265 +441,76 @@
             <div class="row">
                 <div class="col-xxl-12">
                     <div class="product__slider owl-carousel">
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-1.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-2.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
+                        @foreach ($reletedProduct as $data)
+                            <div class="product__item white-bg mb-30">
+                                <div class="product__thumb p-relative">
+                                    <a href="product-details.html" class="w-img">
+                                        <img src="{{ asset($data->product_thumbnail) }}" alt="product">
+                                        <img class="second-img" src="{{ asset($data->product_thumbnail) }}"
+                                            alt="product">
+                                    </a>
+                                    <div class="product__action p-absolute">
+                                        <ul>
+                                            <li><a href="{{ route('add.wishlist', $data->id) }}"
+                                                    title="Add to Wishlist"><i class="fal fa-heart"></i></a>
+                                            </li>
+                                            <li><a href="#" title="Quick View" data-bs-toggle="modal"
+                                                    id="{{ $data->id }}" data-bs-target="#productModalId"><i
+                                                        class="fal fa-search"></i></a></li>
+                                            <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product__content text-center">
+                                    <h6 class="product-name"><a
+                                            href="{{ route('product.product_details', $data->product_slug) }}">{{ substr($data->product_name, 0, 20) }}
+                                        </a>
+                                    </h6>
+                                    <div class="rating">
+                                        <ul>
+                                            @if ($sum_rating == null)
+                                                <li><span class="fas fa-star "></span></li>
+                                                <li><span class="fas fa-star "></span></li>
+                                                <li><span class="fas fa-star "></span></li>
+                                                <li><span class="fas fa-star "></span></li>
+                                                <li><span class="fas fa-star "></span></li>
+                                            @elseif($sum_rating != null)
+                                                <li><span
+                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 1 ? 'checked' : null }}"></span>
+                                                </li>
+                                                <li><span
+                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 2 ? 'checked' : null }}"></span>
+                                                </li>
+                                                <li><span
+                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 3 ? 'checked' : null }}"></span>
+                                                </li>
+                                                <li><span
+                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 4 ? 'checked' : null }}"></span>
+                                                </li>
+                                                <li><span
+                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 5 ? 'checked' : null }}"></span>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                    @if ($data->descount_price == null)
+                                        <span class="new mb-5">${{ $data->selling_price }}</span>
+                                    @else
+                                        <span class="price">${{ $data->descount_price }}</span>
+                                        <del>${{ $data->selling_price }}</del>
+                                    @endif
+                                </div>
+                                <div class="product__add-btn">
+                                    @if ($data->stock_quantity < 1)
+                                        <a href="" class="btn btn-danger" disabled>Stock
+                                            out</a>
+                                    @else
+                                        <button type="button">Add to Cart</button>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> High Quality Glass
-                                        Ultra-Thin Kitchen Scale</a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$500.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-3.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-4.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> LG 27UD58: £347.21,
-                                        Ebuyer.com </a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$560.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-5.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-6.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> Samsung C49J89: £875,
-                                        Debenhams Plus </a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$450.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> Blink Home Security Camera
-                                        System 01 </a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$720.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-9.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-10.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> Blue t-shir for men (X, M,
-                                        XL, XXL) </a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$720.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-11.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-12.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> Samsung A20 Pro Ultra CPU
-                                        4/64 GB </a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$720.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
-                        <div class="product__item white-bg mb-30">
-                            <div class="product__thumb p-relative">
-                                <a href="product-details.html" class="w-img">
-                                    <img src="{{ asset('frontend/img/shop/product/product-7.jpg') }}" alt="product">
-                                    <img class="second-img" src="{{ asset('frontend/img/shop/product/product-8.jpg') }}"
-                                        alt="product">
-                                </a>
-                                <div class="product__action p-absolute">
-                                    <ul>
-                                        <li><a href="#" title="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                                        </li>
-                                        <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
-                                        <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product__content text-center">
-                                <h6 class="product-name">
-                                    <a class="product-item-link" href="product-details.html"> Blink Home Security Camera
-                                        System 01 </a>
-                                </h6>
-                                <div class="rating">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <span class="price">$720.00</span>
-                            </div>
-                            <div class="product__add-btn">
-                                <button type="button">Add to Cart</button>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -714,18 +524,11 @@
             <div class="row align-items-center">
                 <div class="col-xl-12">
                     <div class="brand__slider owl-carousel">
+                        @foreach ($brand as $data)
                         <div class="brand__item">
-                            <img src="{{ asset('frontend/img/brand/brand-1.jpg') }}" alt="">
+                            <img src="{{ asset($data->brand_image) }}" style="width: 80px;" alt="">
                         </div>
-                        <div class="brand__item">
-                            <img src="{{ asset('frontend/img/brand/brand-2.jpg') }}" alt="">
-                        </div>
-                        <div class="brand__item">
-                            <img src="{{ asset('frontend/img/brand/brand-3.jpg') }}" alt="">
-                        </div>
-                        <div class="brand__item">
-                            <img src="{{ asset('frontend/img/brand/brand-4.jpg') }}" alt="">
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -884,7 +687,7 @@
     <!-- shop modal end -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#thumbOne-tab').click(function() {
                 var images = $('#thumbOne-tab img').attr('src');
                 // alert(images);
@@ -893,10 +696,10 @@
             });
         })
 
-//         $(document).ready(function(){
-//   $("button").click(function(){
-//     $("#div1").load("demo_test.txt");
-//   });
-// });
+        //         $(document).ready(function(){
+        //   $("button").click(function(){
+        //     $("#div1").load("demo_test.txt");
+        //   });
+        // });
     </script>
 @endsection

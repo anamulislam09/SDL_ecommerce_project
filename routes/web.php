@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,6 @@ Route::group(['prefix' => 'product'], function () {
     // wishlist route 
     Route::get('add/wishlist/{id}', [ProductController::class, 'AddWishlist'])->name('add.wishlist');
     Route::get('add/cart/{id}', [CartController::class, 'AddToCart']);
+     // review route 
+     Route::post('store/review', [ReviewController::class, 'storeReview'])->name('store.review');;
 });

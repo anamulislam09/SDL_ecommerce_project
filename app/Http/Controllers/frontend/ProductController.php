@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,17 +16,19 @@ class ProductController extends Controller
     public function productDetails($slug)
     {
         $data = Product::where('product_slug', $slug)->first();
-        return view('frontend.products.product-details' , compact('data'));
-
+        $review = Review::where('product_id', $data->id)->orderBy('id', 'DESC')->get();
+        $reletedProduct = Product::where('category_id', $data->category_id)->orderBy('id', 'DESC')->limit(10)->get();
+        $brand = Brand::get();
+        return view('frontend.products.product-details' , compact('data', 'review', 'reletedProduct','brand'));
     }
 
     // show productQuickView 
     public function productQuickView($id)
     {
         $data = Product::where('id', $id)->first();
-        // return json_decode($data);
-        return view('frontend.products.quickview' , compact('data'));
-
+        // return json_decode('dskfg');
+        $review = Review::where('product_id', $id)->orderBy('id', 'DESC')->get();
+        return view('frontend.products.quickview', compact('data', 'review'));
     }
 
     // AddWishlist route 
