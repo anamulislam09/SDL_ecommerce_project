@@ -26,7 +26,8 @@
             <div class="tab-content" id="modalTabContent">
                 @php
                     $images = json_decode($data->images, true);
-
+                    $color = explode(',', $data->product_color);
+                    $size = explode(',', $data->product_size);
                 @endphp
                 <div class="tab-pane fade show active" id="nav1" role="tabpanel" aria-labelledby="nav1-tab">
                     <div class="product__modal-img w-img">
@@ -95,7 +96,7 @@
                         @endif
                     </ul>
                 </div>
-              
+
             </div>
             <div class="product__price">
                 @if ($data->descount_price == null)
@@ -108,10 +109,46 @@
                 @endif
             </div>
             <div class="product__modal-form mb-30">
-                <form action="#">
-                    <div class="pro-quan-area d-lg-flex align-items-center">
+                <form action="{{route('addToCart')}}" method="POST" id="add_cart_form_Qv">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $data->id }}">
+
+                    @if ($data->descount_price == null)
+                        <input type="hidden" name="price" value="{{ $data->selling_price }}">
+                    @else
+                        <input type="hidden" name="price" value="{{ $data->descount_price }}">
+                    @endif
+
+                    <div class="clearfix" style="z-index: 1000">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="">Color:</label>
+                                    <select name="color" class="form-control form-control-sm" style="min-width:120px;"
+                                        id="">
+                                        <option value="" selected disabled>Select Color</option>
+                                        @foreach ($color as $row)
+                                            <option value="{{ $row }}">{{ $row }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Size:</label>
+                                    <select name="size" class="form-control form-control-sm" style="min-width:120px;"
+                                        id="">
+                                        <option value="" selected disabled>Select Size</option>
+                                        @foreach ($size as $row)
+                                            <option value="{{ $row }}">{{ $row }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pro-quan-area d-lg-flex align-items-center pt-3">
                         <div class="product-quantity mr-20 mb-25">
-                            <div class="cart-plus-minus p-relative"><input type="text" value="1" /></div>
+                            <div class="cart-plus-minus p-relative"><input type="text" name="qty"
+                                    value="1" /></div>
                         </div>
                         <div class="pro-cart-btn mb-25">
                             @if ($data->stock_quantity < 1)
@@ -153,3 +190,27 @@
     //   });
     // });
 </script>
+
+<script>
+    // add to cart 
+    $('#add_cart_form_Qv').submit(function(e) {
+      e.preventDefault();
+      $('.loading').removeClass('d-none');
+      var url = $(this).attr('action');
+      var request = $(this).serialize();
+      $.ajax({
+        url: url,
+        type:'post',
+        async: false,
+        data: request,
+        success:function(data){
+          toastr.success(data);
+          $('#add_cart_form')[0].reset();
+        //   $('.loading').addClass('d-none');
+        //   Cart();
+          
+        }
+      })
+    })
+  </script>
+

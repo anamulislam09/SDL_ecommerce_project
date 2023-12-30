@@ -1,6 +1,7 @@
   
   @php
       $cats = DB::table('categories')->get();
+      $carts = DB::table('carts')->where('user_id',Auth::id())->count();
       $wishlist = DB::table('wishlists')->where('user_id',Auth::id())->count();
   @endphp
   <!-- back to top start -->
@@ -95,8 +96,8 @@
                                 </form>
                             </div>
                             <div class="cart__mini-wrapper d-none d-md-flex f-right p-relative">
-                                <a href="javascript:void(0);" class="cart__toggle">
-                                    <span class="cart__total-item">01</span>
+                                <a href="{{route('cart')}}" class="cart__toggle">
+                                    <span class="cart__total-item">{{$carts}}</span>
                                 </a>
                                 <span class="cart__content">
                                     <span class="cart__my">My Cart:</span>

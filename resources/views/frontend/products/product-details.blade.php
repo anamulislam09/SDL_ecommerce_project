@@ -18,7 +18,7 @@
         $rating1 = App\Models\Review::where('product_id', $data->id)
             ->where('rating', 1)
             ->count();
-
+            
         // average rating
         $sum_rating = App\Models\Review::where('product_id', $data->id)->sum('rating');
         $count_rating = App\Models\Review::where('product_id', $data->id)->count('rating');
@@ -30,6 +30,8 @@
             <div class="row">
                 @php
                     $images = json_decode($data->images, true);
+                    $color = explode(',', $data->product_color);
+                    $size = explode(',', $data->product_size);
                 @endphp
                 <div class="col-xxl-5 col-xl-5 col-lg-5">
                     <div class="product__details-nav d-sm-flex align-items-start">
@@ -152,14 +154,50 @@
                                 <h3><span>Hurry Up!</span> Only {{ $data->stock_quantity }} products left in stock.</h3>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" data-width="100%"></div>
+                                        aria-valuenow="{{ $data->stock_quantity }}" aria-valuemin="0" aria-valuemax="100" data-width="{{ $data->stock_quantity }}"></div>
                                 </div>
                             </div>
                             <div class="product__details-quantity mb-20">
-                                <form action="#">
-                                    <div class="pro-quan-area d-lg-flex align-items-center">
+                                <form action="{{route('addToCart')}}" method="POST" >
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $data->id }}">
+                
+                                    @if ($data->descount_price == null)
+                                        <input type="hidden" name="price" value="{{ $data->selling_price }}">
+                                    @else
+                                        <input type="hidden" name="price" value="{{ $data->descount_price }}">
+                                    @endif
+                
+                                    <div class="clearfix" style="z-index: 1000">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    {{-- <label for="">Color:</label> --}}
+                                                    <select name="color" class="form-control form-control-sm" style="min-width:120px;"
+                                                        id="">
+                                                        <option value="" selected disabled>Select Color</option>
+                                                        @foreach ($color as $row)
+                                                            <option value="{{ $row }}">{{ $row }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-6">
+                                                    {{-- <label for="">Size:</label> --}}
+                                                    <select name="size" class="form-control form-control-sm" style="min-width:120px;"
+                                                        id="">
+                                                        <option value="" selected disabled>Select Size</option>
+                                                        @foreach ($size as $row)
+                                                            <option value="{{ $row }}">{{ $row }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pro-quan-area d-lg-flex align-items-center pt-3">
                                         <div class="product-quantity mr-20 mb-25">
-                                            <div class="cart-plus-minus p-relative"><input type="text"
+                                            <div class="cart-plus-minus p-relative"><input type="text" name="qty"
                                                     value="1" /></div>
                                         </div>
                                         <div class="pro-cart-btn mb-25">

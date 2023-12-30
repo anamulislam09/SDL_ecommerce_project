@@ -256,15 +256,59 @@
                                                                 href="{{ route('product.product_details', $item->product_slug) }}">
                                                                 {{ substr($item->product_name, 0, 20) }}</a>
                                                         </h6>
+
+                                                        {{-- Rating starrt herte --}}
+                                                        @php
+                                                        $rating5 = App\Models\Review::where('product_id', $item->id)
+                                                            ->where('rating', 5)
+                                                            ->count();
+                                                        $rating4 = App\Models\Review::where('product_id', $item->id)
+                                                            ->where('rating', 4)
+                                                            ->count();
+                                                        $rating3 = App\Models\Review::where('product_id', $item->id)
+                                                            ->where('rating', 3)
+                                                            ->count();
+                                                        $rating2 = App\Models\Review::where('product_id', $item->id)
+                                                            ->where('rating', 2)
+                                                            ->count();
+                                                        $rating1 = App\Models\Review::where('product_id', $item->id)
+                                                            ->where('rating', 1)
+                                                            ->count();
+                                                            
+                                                        // average rating
+                                                        $sum_rating = App\Models\Review::where('product_id', $item->id)->sum('rating');
+                                                        $count_rating = App\Models\Review::where('product_id', $item->id)->count('rating');
+                                                        // $avg_rating = $count_rating ? $sum_rating / $count_rating : 0;
+                                                    @endphp
                                                         <div class="rating">
                                                             <ul>
-                                                                <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="far fa-star"></i></a></li>
+                                                                @if ($sum_rating == null)
+                                                                <li><span class="fas fa-star"></span></li>
+                                                                <li><span class="fas fa-star"></span></li>
+                                                                <li><span class="fas fa-star"></span></li>
+                                                                <li><span class="fas fa-star"></span></li>
+                                                                <li><span class="fas fa-star"></span></li>
+                                                            @elseif($sum_rating != null)
+                                                                <li><span
+                                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 1 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 2 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 3 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 4 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                                <li><span
+                                                                        class="fas fa-star {{ round($sum_rating / $count_rating) >= 5 ? 'checked' : null }}"></span>
+                                                                </li>
+                                                            @endif
                                                             </ul>
                                                         </div>
+
+                                                        {{-- Rating ends here --}}
                                                         @if ($item->descount_price == null)
                                                             <span class="new mb-5">${{ $item->selling_price }}</span>
                                                         @else
@@ -275,14 +319,27 @@
                                                             </div>
                                                         @endif
                                                     </div>
+                                                    {{-- add top cart form start here --}}
+                                                    <form action="{{route('addToCart')}}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                    
+                                                        @if ($item->descount_price == null)
+                                                            <input type="hidden" name="price" value="{{ $item->selling_price }}">
+                                                        @else
+                                                            <input type="hidden" name="price" value="{{ $item->descount_price }}">
+                                                        @endif
+                                                   
                                                     <div class="product__add-btn">
                                                         @if ($item->stock_quantity < 1)
                                                             <a href="" class="btn btn-danger" disabled>Stock
                                                                 out</a>
                                                         @else
-                                                        <button type="button">Add to Cart</button>
+                                                        <button type="submit">Add to Cart</button>
                                                         @endif
                                                     </div>
+                                                </form>
+                                                    {{-- add top cart form ends here --}}
                                                 </div>
                                             </div>
                                         @endforeach

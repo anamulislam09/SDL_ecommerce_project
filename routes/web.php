@@ -37,7 +37,13 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('product_quick_view/{id}', [ProductController::class, 'productQuickView']);
     // wishlist route 
     Route::get('add/wishlist/{id}', [ProductController::class, 'AddWishlist'])->name('add.wishlist');
-    Route::get('add/cart/{id}', [CartController::class, 'AddToCart']);
      // review route 
      Route::post('store/review', [ReviewController::class, 'storeReview'])->name('store.review');;
-});
+
+
+    //Cart
+    Route::post('addtocart', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('my-cart', [CartController::class, 'myCart'])->name('cart');  //show all cart 
+    // Route::get('remove-cart/{id}', [CartController::class, 'removeCart'])->name('removeCart');  //removed all cart 
+
+    });

@@ -22,6 +22,7 @@ class IndexController extends Controller
         $cats = Category::get();
         $slider = Slider::where('status', 1)->get();
         $today_deal = Product::where('today_deal', 1)->where('status', 1)->get();
+        
         $sales = Product::where('status', 1)->get();
         // $computer = Product::where('category_id', 3)->where('status', 1)->get();
         // $phones = Product::where('category_id', 2)->where('status', 1)->get();

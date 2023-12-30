@@ -222,26 +222,6 @@
                                                 <a class="product-item-link" href=" {{route('product.product_details',$item->product_slug )}}"> 
                                                     {{substr($item->product_name, 0, 20)}}</a>
                                             </h6>
-                                            <div class="rating rating-2">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#"><i class="far fa-star"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i class="far fa-star"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i class="far fa-star"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i class="far fa-star"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i class="far fa-star"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
                                             @if ($item->descount_price == null)
                                             <span class="new mb-5">${{ $item->selling_price }}</span>
                                           @else
@@ -319,15 +299,6 @@
                                     <h6 class="product-name">
                                         <a class="product-item-link" href="{{route('product.product_details', $item->product_slug)}}">{{substr($item->product_name, 0, 20)}}</a>
                                     </h6>
-                                    <div class="rating">
-                                        <ul>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                        </ul>
-                                    </div>
                                     @if ($item->descount_price == null)
                                     <span class="new mb-5">${{ $item->selling_price }}</span>
                                   @else
@@ -401,6 +372,9 @@
                             aria-labelledby="deskto-tab">
                             <div class="product__desktop-slider-3 t-nav owl-carousel">
                                 @foreach ($data as $item)
+                                @php
+                                    
+                                @endphp
                                 <div class="product__item-wrapper">
                                     <div class="product__item white-bg d-flex mb-20">
                                         <div class="product__thumb product__thumb-sale p-relative ">
@@ -416,15 +390,6 @@
                                             <h6 class="product-name ">
                                                 <a class="product-item-link " href="{{route('product.product_details',$item->product_slug )}}">{{substr($item->product_name, 0, 20)}}</a>
                                             </h6>
-                                            <div class="rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
                                             @if ($item->descount_price == null)
                                             <span class="new mb-5">${{ $item->selling_price }}</span>
                                           @else

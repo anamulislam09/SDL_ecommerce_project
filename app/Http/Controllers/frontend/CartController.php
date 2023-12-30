@@ -4,33 +4,36 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function AddToCart($id)
+    public function myCart(){
+        $cart = Cart::where('user_id', Auth::id())->get();
+        return view('frontend.products.cart', compact('cart'));
+    }
+
+    // add to cart for quick view 
+    public function addToCart(Request $request)
     {
         if (Auth::check()) {
-            // $check = DB::table('wishlists')->where('product_id',$id)->where('user_id', Auth::id())->first();
-            $check = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
-            if ($check) {
-                $notification = array('message' => 'Already have it on your wishlist !', 'alert_type' => 'error');
-                return redirect()->back()->with($notification);
-            } else {
-                // $product = Product::find($request->id);
-                Cart::insert([
-                    'user_id' => Auth::id(),
-                    'product_id' => $id
-                ]);
-                // $notification = array('message' => 'Product added on wishlist !', 'alert_type' => 'success');
-                return response()->json('Add to cart Successfully!');
-
-                // return redirect()->back()->with($notification);
-            }
-        } else {
+        Cart::insert([
+            'user_id' => Auth::id(),
+            'product_id' => $request->id,
+            'quantity' => $request->qty,
+            'price' => $request->price,
+           'size' => $request->size, 
+           'color' => $request->color,
+        ]);
+        // return response()->json('Add to cart Successfully!');
+        $notification = array('message' => 'Add to cart Successfully! !', 'alert_type' => 'success');
+            return redirect()->back()->with($notification);
+  } else {
             $notification = array('message' => 'Please login first !', 'alert_type' => 'error');
             return redirect()->back()->with($notification);
         }
     }
+
 }
