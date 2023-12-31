@@ -244,7 +244,7 @@
                                                             <ul>
                                                                 <li><a href=" {{ route('add.wishlist', $item->id) }}" title="Add to Wishlist"><i
                                                                             class="fal fa-heart"></i></a></li>
-                                                                <li><a href="" title="Quick View" class="quick_view" id="{{ $item->id }}" data-bs-toggle="modal"  data-bs-target="#productModalId"><i class="fal fa-search"></i></a></li>
+                                                                <li><a href="" title="Quick View" class="quick_view" id="{{ $item->id }}" data-bs-toggle="modal"  data-bs-target="#productModalId"><i class="fas fa-eye"></i></a></li>
                                                                 <li><a href="" title="Compare"><i
                                                                             class="far fa-sliders-h"></i></a></li>
                                                             </ul>
@@ -332,10 +332,12 @@
                                                    
                                                     <div class="product__add-btn">
                                                         @if ($item->stock_quantity < 1)
-                                                            <a href="" class="btn btn-danger" disabled>Stock
-                                                                out</a>
-                                                        @else
-                                                        <button type="submit">Add to Cart</button>
+                                                                <button type="submit" class="btn stock-out">Stock out</button>
+                                                                @else
+                                                                {{-- <button type="submit">Add to Cart</button> --}}
+                                                                <a href="{{ route('product.product_details', $item->product_slug) }}" class=" btn cart-btn" disabled>
+                                                                    View details</a>
+
                                                         @endif
                                                     </div>
                                                 </form>
@@ -364,7 +366,7 @@
                                                             <li><a href="#"  title="Quick View"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#productModalId"><i
-                                                                        class="fal fa-search"></i></a></li>
+                                                                        class="fas fa-eye"></i></a></li>
                                                             <li><a href="#" title="Compare"><i
                                                                         class="far fa-sliders-h"></i></a></li>
                                                         </ul>

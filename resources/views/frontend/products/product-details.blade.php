@@ -158,7 +158,7 @@
                                 </div>
                             </div>
                             <div class="product__details-quantity mb-20">
-                                <form action="{{route('addToCart')}}" method="POST" >
+                                <form action="{{route('addToCart')}}" method="POST" id="add_cart_form_Qv">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $data->id }}">
                 
@@ -172,19 +172,15 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    {{-- <label for="">Color:</label> --}}
-                                                    <select name="color" class="form-control form-control-sm" style="min-width:120px;"
-                                                        id="">
-                                                        <option value="" selected disabled>Select Color</option>
-                                                        @foreach ($color as $row)
-                                                            <option value="{{ $row }}">{{ $row }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <select name="color" class="form-control form-control-sm" style="min-width:120px;" required>
+                                                    <option value="" selected disabled>Select Color</option>
+                                                    @foreach ($color as $row)
+                                                        <option value="{{ $row }}">{{ $row }}</option>
+                                                    @endforeach
+                                                </select>
                                                 </div>
                                                 <div class="col-6">
-                                                    {{-- <label for="">Size:</label> --}}
-                                                    <select name="size" class="form-control form-control-sm" style="min-width:120px;"
-                                                        id="">
+                                                    <select name="size"class="form-control form-control-sm" style="min-width:120px;" required>
                                                         <option value="" selected disabled>Select Size</option>
                                                         @foreach ($size as $row)
                                                             <option value="{{ $row }}">{{ $row }}</option>
@@ -740,4 +736,25 @@
         //   });
         // });
     </script>
+
+<script>
+    // add to cart 
+    $('#add_cart_form_Qv').submit(function(e) {
+      e.preventDefault();
+      var url = $(this).attr('action');
+      var request = $(this).serialize();
+      $.ajax({
+        url: url,
+        type:'post',
+        async: false,
+        data: request,
+        success:function(data){
+          toastr.success(data);
+        window.location.reload(true);
+   
+          
+        }
+      })
+    })
+  </script>
 @endsection

@@ -44,6 +44,5 @@ Route::group(['prefix' => 'product'], function () {
     //Cart
     Route::post('addtocart', [CartController::class, 'addToCart'])->name('addToCart');
     Route::get('my-cart', [CartController::class, 'myCart'])->name('cart');  //show all cart 
-    // Route::get('remove-cart/{id}', [CartController::class, 'removeCart'])->name('removeCart');  //removed all cart 
-
+    Route::get('my-cart/delete/{id}', [CartController::class, 'destroy'])
     });

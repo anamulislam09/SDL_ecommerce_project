@@ -109,7 +109,7 @@
                 @endif
             </div>
             <div class="product__modal-form mb-30">
-                <form action="{{route('addToCart')}}" method="POST" id="add_cart_form_Qv">
+                <form action="{{url('product/addtocart/')}}" method="POST" id="add_cart_form_Qv">
                     @csrf
                     <input type="hidden" name="id" value="{{ $data->id }}">
 
@@ -125,7 +125,7 @@
                                 <div class="col-6">
                                     <label for="">Color:</label>
                                     <select name="color" class="form-control form-control-sm" style="min-width:120px;"
-                                        id="">
+                                        id="" required>
                                         <option value="" selected disabled>Select Color</option>
                                         @foreach ($color as $row)
                                             <option value="{{ $row }}">{{ $row }}</option>
@@ -135,7 +135,7 @@
                                 <div class="col-6">
                                     <label for="">Size:</label>
                                     <select name="size" class="form-control form-control-sm" style="min-width:120px;"
-                                        id="">
+                                        id="" required>
                                         <option value="" selected disabled>Select Size</option>
                                         @foreach ($size as $row)
                                             <option value="{{ $row }}">{{ $row }}</option>
@@ -205,7 +205,7 @@
         data: request,
         success:function(data){
           toastr.success(data);
-          $('#add_cart_form')[0].reset();
+          $('#add_cart_form_Qv').reset();
         //   $('.loading').addClass('d-none');
         //   Cart();
           

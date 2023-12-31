@@ -2437,7 +2437,7 @@ p {
     -o-transition: all 0.2s ease-out 0s;
     transition: all 0.2s ease-out 0s;
 }
-.product__add-btn button {
+.product__add-btn .cart-btn {
     font-size: 12px;
     font-weight: 500;
     background-color: #fcb700;
@@ -2449,21 +2449,34 @@ p {
     z-index: 1;
     text-transform: uppercase;
 }
+.product__add-btn .stock-out {
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #fc0065;
+    line-height: 45px;
+    padding: 0 50px;
+    color: #ffffff;
+    border-radius: 30px;
+    text-transform: initial;
+    z-index: 1;
+    text-transform: uppercase;
+    cursor: auto
+}
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
-    .product__add-btn button {
+    .product__add-btn .cart-btn {
         padding: 0 30px;
     }
 }
-.product__add-btn button:hover {
+.product__add-btn .cart-btn:hover {
     background: #222;
     color: #ffffff;
 }
-.product__add-btn-4 button {
+.product__add-btn-4 .cart-btn {
     border: 2px solid #d01418;
     background: #d01418;
     color: #ffffff;
 }
-.product__add-btn-4 button:hover {
+.product__add-btn-4 .cart-btn:hover {
     background: #ffffff;
     color: #d01418;
 }
@@ -5722,3 +5735,85 @@ span.cart__total-item.wishlist {
 span.fas.fa-star.checked {
     color: #ff8f00;
 }
+
+/* cart coupon  */
+.cart-coupon form input {
+    width: 200px;
+    border: 1px solid #dcdcdc;
+    padding: 14px 20px;
+    min-height: 50px;
+    font-size: 13px;
+    display: inline-block;
+    position: absolute;
+}
+
+button, input {
+    overflow: visible;
+}
+
+.cart-coupon form button, .shop-cart-widget form button {
+    background: #ff6000;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    min-height: 50px;
+    margin-left: -1px;
+    width: 130px;
+    position: relative;
+    left: 180px;
+   
+}
+
+.btn {
+    -moz-user-select: none;
+    border: medium none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 19px 10px 15px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transition: all 0.3s ease 0s;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.shop-cart-widget {
+    padding: 51px 25px 61px;
+}
+
+.shop-cart-widget form ul li {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #2b2b2b;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.shop-cart-widget form ul li > span {
+    width: 46%;
+}
+
+.shop-cart-widget form button {
+    border-radius: 4px;
+    margin-top: 35px;
+    width: 48%;
+    background: #ff6000;
+    border-bottom-left-radius: 4;
+    border-top-left-radius: 4;
+    min-height: 50px;
+    color: white;
+    margin-left: -100px;
+}
+
+
+/* quentity counter style */
