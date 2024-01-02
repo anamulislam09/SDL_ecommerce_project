@@ -112,7 +112,7 @@
                                       <span class="cart__my">My Cart:</span>
                                       <span class="cart__total-price">{{ $total_price}}</span>
                                   </span>
-                                  <div class="cart__mini">
+                                  {{-- <div class="cart__mini">
                                       <div class="cart__close"><button type="button" class="cart__close-btn"><i
                                                   class="fal fa-times"></i></button></div>
                                       <ul>
@@ -157,7 +157,7 @@
                                                   edit cart</a>
                                           </li>
                                       </ul>
-                                  </div>
+                                  </div> --}}
                               </div>
                           </div>
                       </div>

@@ -13,7 +13,7 @@ class CartController extends Controller
 {
     public function myCart(){
         $cart = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.products.cart', compact('cart'));
+        return view('frontend.pages.cart', compact('cart'));
     }
 
     // add to cart for quick view 
@@ -41,6 +41,7 @@ class CartController extends Controller
         $notification = array('message' => 'Cart empty successfully !', 'alert_type' => 'error');
         return redirect()->back()->with($notification);
     }
+    
     // delete cart 
     public function destroy($id){
         $data =  Cart::findOrFail($id);

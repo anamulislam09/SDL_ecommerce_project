@@ -119,11 +119,12 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">$ 151.00</span></li>
+                                    <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">{{$total_price}}</span></li>
                                 </ul>
                                 <hr>
                                 <a href="{{ route('products') }}" class="btn btn-warning btn-sm ">Go to Shoppng</a>
-                                <button class="checkout_btn">PROCEED TO CHECKOUT</button>
+                                <a href="{{ route('cart.checkout') }}" class="checkout_btn">PROCEED TO CHECKOUT</a>
+                                {{-- <button class="checkout_btn">PROCEED TO CHECKOUT</button> --}}
                             </form>
                         </div>
                     </aside>

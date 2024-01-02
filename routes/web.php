@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\ReviewController;
@@ -49,5 +50,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('my-cart', [CartController::class, 'myCart'])->name('cart');  //show all cart 
     Route::get('my-cart/delete/{id}', [CartController::class, 'destroy']);
     Route::get('clear-cart', [CartController::class, 'clearCartItem'])->name('clearCartItem');
+    Route::get('my-cart/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
+    Route::post('my-cart/place-order', [CheckoutController::class, 'placeOrder'])->name('cart.placeorder');
 
     });
