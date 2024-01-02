@@ -33,6 +33,10 @@ Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::group(['prefix' => 'product'], function () {
     // product details route
     Route::get('product-details/{slug}', [ProductController::class, 'productDetails'])->name('product.product_details');
+    // Category wise product route
+    Route::get('category/{id}', [ProductController::class, 'catProdeuct'])->name('cat.product');
+    // subCategory wise product route
+    Route::get('sub-category/{id}', [ProductController::class, 'subCatProdeuct'])->name('subcat.product');
     // product quick view route 
     Route::get('product_quick_view/{id}', [ProductController::class, 'productQuickView']);
     // wishlist route 
@@ -40,9 +44,10 @@ Route::group(['prefix' => 'product'], function () {
      // review route 
      Route::post('store/review', [ReviewController::class, 'storeReview'])->name('store.review');;
 
-
     //Cart
     Route::post('addtocart', [CartController::class, 'addToCart'])->name('addToCart');
     Route::get('my-cart', [CartController::class, 'myCart'])->name('cart');  //show all cart 
-    Route::get('my-cart/delete/{id}', [CartController::class, 'destroy'])
+    Route::get('my-cart/delete/{id}', [CartController::class, 'destroy']);
+    Route::get('clear-cart', [CartController::class, 'clearCartItem'])->name('clearCartItem');
+
     });

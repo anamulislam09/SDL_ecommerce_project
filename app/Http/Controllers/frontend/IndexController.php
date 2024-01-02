@@ -38,8 +38,9 @@ class IndexController extends Controller
     // show all products 
     public function products()
     {
+        $cats = Category::get();
         $data = Product::where('status', 1)->get();
-        return view('frontend.products.products', compact('data'));
+        return view('frontend.products.products', compact('data', 'cats'));
     }
 
     // blog 
@@ -48,12 +49,14 @@ class IndexController extends Controller
     }
     // about 
     public function about(){
-        return view('frontend.pages.about');
+        $cats = Category::get();
+        return view('frontend.pages.about', compact('cats'));
     }
 
     // contact 
     public function contact(){
-        return view('frontend.pages.contact');
+        $cats = Category::get();
+        return view('frontend.pages.contact', compact('cats'));
     }
 
 

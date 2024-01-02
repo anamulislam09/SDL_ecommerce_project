@@ -724,17 +724,9 @@
         $(document).ready(function() {
             $('#thumbOne-tab').click(function() {
                 var images = $('#thumbOne-tab img').attr('src');
-                // alert(images);
-                // $('#thumbImage').val(attr(images))
                 $("#thumbImage").attr('src', images)
             });
         })
-
-        //         $(document).ready(function(){
-        //   $("button").click(function(){
-        //     $("#div1").load("demo_test.txt");
-        //   });
-        // });
     </script>
 
 <script>

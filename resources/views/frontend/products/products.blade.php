@@ -38,8 +38,7 @@
                                             Price
                                         </button>
                                     </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse show"
-                                        aria-labelledby="headingTwo" data-bs-parent="#productWidgetAccordion1">
+                                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#productWidgetAccordion1">
                                         <div class="accordion-body">
                                             <div class="product__widget-content">
                                                 <div class="product__price-slider">

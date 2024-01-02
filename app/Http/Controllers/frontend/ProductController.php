@@ -60,4 +60,16 @@ class ProductController extends Controller
         }
 
     }
+
+    // category wise product 
+    public function catProdeuct($id){
+       $data = Product::where('category_id', $id)->get();
+        return view('frontend.products.products', compact('data'));
+    }
+
+    // category wise product 
+    public function subCatProdeuct($id){
+       $data = Product::where('subcategory_id', $id)->get();
+        return view('frontend.products.products', compact('data'));
+    }
 }

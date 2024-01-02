@@ -30,11 +30,18 @@ class CartController extends Controller
         ]);
         return response()->json('Add to cart Successfully!');
   } else {
-            $notification = array('message' => 'Please login first !', 'alert_type' => 'error');
-            return redirect()->back()->with($notification);
+            return response()->json('Please login first !');
         }
     }
 
+    // clear cart 
+    public function clearCartItem(){
+        $userId = Auth()->id();
+        Cart::where('user_id', $userId)->delete();
+        $notification = array('message' => 'Cart empty successfully !', 'alert_type' => 'error');
+        return redirect()->back()->with($notification);
+    }
+    // delete cart 
     public function destroy($id){
         $data =  Cart::findOrFail($id);
         $data->delete();

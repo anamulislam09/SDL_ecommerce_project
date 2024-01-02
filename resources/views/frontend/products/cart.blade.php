@@ -59,10 +59,8 @@
                                             <td class="product-color"> <span class="amount">{{ $item->color }}</span></td>
                                             <td class="product-size"><span class="">{{ $item->size }}</span></td>
                                             <td class="product-quantity">
-                                                <div class="product-quantity mr-20 mb-25">
-                                                    <div class="cart-plus-minus p-relative"><input id="qty"
-                                                            type="text" name="qty" value="{{ $item->quantity }}" />
-                                                    </div>
+                                                <div class="product-quantity">
+                                                   {{ $item->quantity }}
                                                 </div>
                                             </td>
                                             <td class="product-subtotal"><span
@@ -81,6 +79,12 @@
                             </table>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a href="{{route('clearCartItem')}}" class="btn btn-warning btn-sm float-end emptyCart"><i class="fas fa-trash"></i> Clear cart</a>
                 </div>
             </div>
 
@@ -118,7 +122,7 @@
                                     <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">$ 151.00</span></li>
                                 </ul>
                                 <hr>
-                                <a href="" class="btn btn-warning btn-sm ">Go to Shoppng</a>
+                                <a href="{{ route('products') }}" class="btn btn-warning btn-sm ">Go to Shoppng</a>
                                 <button class="checkout_btn">PROCEED TO CHECKOUT</button>
                             </form>
                         </div>
@@ -130,6 +134,22 @@
     <!-- Cart Area End-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        {{-- sweet alert for delete --}}
+     
+{{-- empty cart --}}
+
+{{-- <script>
+    $(document).on('click', 'emptyCart', function(){
+        var cartid = $(this).data('cartid');
+        var result = confirm("Are you sure you want to delete this cart item ?");
+        if(result){
+            $.ajax({
+                headers:{
+
+                }
+            })
+        }
+    })
+</script> --}}
+
         
 @endsection
