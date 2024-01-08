@@ -488,9 +488,7 @@
                                             <li><a href="{{ route('add.wishlist', $data->id) }}"
                                                     title="Add to Wishlist"><i class="fal fa-heart"></i></a>
                                             </li>
-                                            <li><a href="#" title="Quick View" data-bs-toggle="modal"
-                                                    id="{{ $data->id }}" data-bs-target="#productModalId"><i
-                                                        class="fal fa-search"></i></a></li>
+                                            <li><a href="" title="Quick View" class="quick_view" id="{{ $data->id }}" data-bs-toggle="modal"  data-bs-target="#productModalId"><i class="fas fa-eye"></i></a></li>
                                             <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
                                             </li>
                                         </ul>
@@ -540,7 +538,8 @@
                                         <a href="" class="btn btn-danger" disabled>Stock
                                             out</a>
                                     @else
-                                        <button type="button">Add to Cart</button>
+                                    <a href="{{ route('product.product_details', $data->product_slug) }}" class=" btn cart-btn" disabled>
+                                        View details</a>
                                     @endif
                                 </div>
                             </div>
@@ -650,7 +649,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="product__modal-content">
-                                    <h4><a href="product-details.html">Samsung C49J89: £875, Debenhams Plus</a></h4>
+                                    <h4><a href="product-details.html"></a></h4>
                                     <div class="product__modal-des mb-40">
                                         <p>Typi non habent claritatem insitam, est usus legentis in iis qui facit eorum
                                             claritatem. Investigationes demonstraverunt </p>

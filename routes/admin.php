@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\Admin\PickuppointController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
@@ -87,6 +88,16 @@ Route::middleware('is_admin')->group(function () {
     Route::get('/edit/{id}', [ProductController::class, 'edit']);
     Route::post('/update', [ProductController::class, 'update'])->name('update.product');
     Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+});
+
+// orders route
+Route::group(['prefix' => 'orders'], function () {
+    Route::get('/', [OrderController::class, 'index'])->name('order.index');
+    // Route::get('/create', [WarehouseController::class, 'create'])->name('warehouse.create');
+    // Route::post('/store', [WarehouseController::class, 'store'])->name('store.warehouse');
+    // Route::get('/edit/{id}', [WarehouseController::class, 'edit']);
+    // Route::post('/update', [WarehouseController::class, 'update'])->name('update.warehouse');
+    // Route::get('/delete/{id}', [WarehouseController::class, 'destroy'])->name('warehouse.delete');
 });
 
 // warehouse route

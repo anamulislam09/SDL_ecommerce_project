@@ -59,6 +59,15 @@
                         <p>Products</p>
                     </a>
                 </li>
+
+                {{-- Products start here --}}
+                <li class="nav-item">
+                    <a href="{{route('order.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-circle"></i>
+                        <p>Orders</p>
+                    </a>
+                </li>
+
                 {{-- warehouse start here --}}
                 <li class="nav-item">
                     <a href="{{route('warehouse.index')}}" class="nav-link">
