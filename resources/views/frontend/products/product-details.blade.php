@@ -18,31 +18,29 @@
         $rating1 = App\Models\Review::where('product_id', $data->id)
             ->where('rating', 1)
             ->count();
-            
+
         // average rating
         $sum_rating = App\Models\Review::where('product_id', $data->id)->sum('rating');
         $count_rating = App\Models\Review::where('product_id', $data->id)->count('rating');
         $avg_rating = $count_rating ? $sum_rating / $count_rating : 0;
     @endphp
 
-    <section class="product__area box-plr-75 pb-70 pt-30">
-        <div class="container-fluid">
-            <div class="row">
                 @php
                     $images = json_decode($data->images, true);
                     $color = explode(',', $data->product_color);
                     $size = explode(',', $data->product_size);
                 @endphp
-                <div class="col-xxl-5 col-xl-5 col-lg-5">
-                    <div class="product__details-nav d-sm-flex align-items-start">
-                        <ul class="nav nav-tabs flex-sm-column justify-content-between" id="productThumbTab" role="tablist">
+    <section class="product__area box-plr-75 pb-70 pt-30">
+        <div class="container-fluid">
+            <div class="row">
+                {{-- <div class="col-xxl-5 col-xl-5 col-lg-5 _boxzoom"> --}}
+                    {{-- <div class="product__details-nav d-sm-flex align-items-start">
+                        <ul class="nav nav-tabs flex-sm-column justify-content-between image_list" id="productThumbTab"
+                            role="tablist">
                             @foreach ($images as $image)
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="thumbOne-tab" data-bs-toggle="tab"
-                                        data-bs-target="#thumbOne" type="button" role="tab" aria-controls="thumbOne"
-                                        aria-selected="true">
-                                        <img src="{{ asset('files/product/' . $image) }}" alt="{{ $image }}">
-                                    </button>
+                                <li class="nav-item">
+                                    <img src="{{ asset('files/product/' . $image) }}" style="width: 100px"
+                                        alt="{{ $image }}">
                                 </li>
                             @endforeach
                         </ul>
@@ -50,44 +48,51 @@
                             <div class="tab-content" id="productThumbContent">
                                 <div class="tab-pane fade show active" id="thumbOne" role="tabpanel"
                                     aria-labelledby="thumbOne-tab">
-                                    <div class="product__details-nav-thumb" id="thumbOne">
-                                        <img id="thumbImage" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="thumbTwo" role="tabpanel" aria-labelledby="thumbTwo-tab">
-                                    <div class="product__details-nav-thumb">
-                                        <img src="{{ asset('frontend/img/shop/product/details/big/product-nav-big-2.jpg') }}"
+                                    <div class="product__details-nav-thumb image_selected" id="thumbOne">
+                                        <img src="{{ asset($data->product_thumbnail) }}"
                                             alt="">
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="thumbThree" role="tabpanel" aria-labelledby="thumbThree-tab">
-                                    <div class="product__details-nav-thumb">
-                                        <img src="{{ asset('frontend/img/shop/product/details/big/product-nav-big-3.jpg') }}"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="thumbFour" role="tabpanel" aria-labelledby="thumbFour-tab">
-                                    <div class="product__details-nav-thumb">
-                                        <img src="{{ asset('frontend/img/shop/product/details/big/product-nav-big-4.jpg') }}"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="thumbFive" role="tabpanel" aria-labelledby="thumbFive-tab">
-                                    <div class="product__details-nav-thumb">
-                                        <img src="{{ asset('frontend/img/shop/product/details/big/product-nav-big-5.jpg') }}"
-                                            alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="thumbSix" role="tabpanel" aria-labelledby="thumbSix-tab">
-                                    <div class="product__details-nav-thumb">
-                                        <img src="{{ asset('frontend/img/shop/product/details/big/product-nav-big-6.jpg') }}"
-                                            alt="">
-                                    </div>
-                                </div>
+ 
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> --}}
+                        {{-- <div class="zoom-thumb">
+                           <ul class="piclist">
+                            @foreach ($images as $image)
+                            <li class="nav-item">
+                                <img src="{{ asset('files/product/' . $image) }}" style="width: 100px"
+                                    alt="{{ $image }}">
+                            </li>
+                        @endforeach
+                           </ul>
+                        </div>
+                        <div class="_product-images">
+                           <div class="picZoomer">
+                              <img class="my_img" style="width: 50px" src="{{ asset($data->product_thumbnail) }}" alt="">
+                           </div>
+                        </div> --}}
+                {{-- </div> --}}
+
+                
+        <div class="col-md-5 _boxzoom">
+           <div class="zoom-thumb">
+              <ul class="piclist">
+                @foreach ($images as $image)
+                <li class="nav-item">
+                    <img src="{{ asset('files/product/' . $image) }}" style="width: 100px"
+                        alt="{{ $image }}">
+                </li>
+            @endforeach
+              </ul>
+           </div>
+           <div class="_product-images">
+              <div class="picZoomer">
+                <img class="my_img" style="width: 250px" src="{{ asset($data->product_thumbnail) }}" alt="{{ asset($data->product_thumbnail) }}">
+              </div>
+           </div>
+        </div>
+
                 <div class="col-xxl-7 col-xl-7 col-lg-7">
                     <div class="product__details-wrapper">
                         <div class="product__details">
@@ -154,36 +159,41 @@
                                 <h3><span>Hurry Up!</span> Only {{ $data->stock_quantity }} products left in stock.</h3>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                        aria-valuenow="{{ $data->stock_quantity }}" aria-valuemin="0" aria-valuemax="100" data-width="{{ $data->stock_quantity }}"></div>
+                                        aria-valuenow="{{ $data->stock_quantity }}" aria-valuemin="0" aria-valuemax="100"
+                                        data-width="{{ $data->stock_quantity }}"></div>
                                 </div>
                             </div>
                             <div class="product__details-quantity mb-20">
-                                <form action="{{route('addToCart')}}" method="POST" id="add_cart_form_Qv">
+                                <form action="{{ route('addToCart') }}" method="POST" id="add_cart_form_Qv">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $data->id }}">
-                
+
                                     @if ($data->descount_price == null)
                                         <input type="hidden" name="price" value="{{ $data->selling_price }}">
                                     @else
                                         <input type="hidden" name="price" value="{{ $data->descount_price }}">
                                     @endif
-                
+
                                     <div class="clearfix" style="z-index: 1000">
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <select name="color" class="form-control form-control-sm" style="min-width:120px;" required>
-                                                    <option value="" selected disabled>Select Color</option>
-                                                    @foreach ($color as $row)
-                                                        <option value="{{ $row }}">{{ $row }}</option>
-                                                    @endforeach
-                                                </select>
+                                                    <select name="color" class="form-control form-control-sm"
+                                                        style="min-width:120px;" required>
+                                                        <option value="" selected disabled>Select Color</option>
+                                                        @foreach ($color as $row)
+                                                            <option value="{{ $row }}">{{ $row }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="col-6">
-                                                    <select name="size"class="form-control form-control-sm" style="min-width:120px;" required>
+                                                    <select name="size"class="form-control form-control-sm"
+                                                        style="min-width:120px;" required>
                                                         <option value="" selected disabled>Select Size</option>
                                                         @foreach ($size as $row)
-                                                            <option value="{{ $row }}">{{ $row }}</option>
+                                                            <option value="{{ $row }}">{{ $row }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -209,7 +219,8 @@
                             </div>
                             <div class="product__details-action">
                                 <ul>
-                                    <li><a href="{{ route('add.wishlist', $data->id) }}" title="Add to Wishlist"><i class="fal fa-heart"></i></a></li>
+                                    <li><a href="{{ route('add.wishlist', $data->id) }}" title="Add to Wishlist"><i
+                                                class="fal fa-heart"></i></a></li>
                                     <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a></li>
                                     <li><a href="#" title="Print"><i class="fal fa-print"></i></a></li>
                                     <li><a href="#" title="Print"><i class="fal fa-share-alt"></i></a></li>
@@ -488,7 +499,9 @@
                                             <li><a href="{{ route('add.wishlist', $data->id) }}"
                                                     title="Add to Wishlist"><i class="fal fa-heart"></i></a>
                                             </li>
-                                            <li><a href="" title="Quick View" class="quick_view" id="{{ $data->id }}" data-bs-toggle="modal"  data-bs-target="#productModalId"><i class="fas fa-eye"></i></a></li>
+                                            <li><a href="" title="Quick View" class="quick_view"
+                                                    id="{{ $data->id }}" data-bs-toggle="modal"
+                                                    data-bs-target="#productModalId"><i class="fas fa-eye"></i></a></li>
                                             <li><a href="#" title="Compare"><i class="far fa-sliders-h"></i></a>
                                             </li>
                                         </ul>
@@ -538,8 +551,9 @@
                                         <a href="" class="btn btn-danger" disabled>Stock
                                             out</a>
                                     @else
-                                    <a href="{{ route('product.product_details', $data->product_slug) }}" class=" btn cart-btn" disabled>
-                                        View details</a>
+                                        <a href="{{ route('product.product_details', $data->product_slug) }}"
+                                            class=" btn cart-btn" disabled>
+                                            View details</a>
                                     @endif
                                 </div>
                             </div>
@@ -558,9 +572,9 @@
                 <div class="col-xl-12">
                     <div class="brand__slider owl-carousel">
                         @foreach ($brand as $data)
-                        <div class="brand__item">
-                            <img src="{{ asset($data->brand_image) }}" style="width: 80px;" alt="">
-                        </div>
+                            <div class="brand__item">
+                                <img src="{{ asset($data->brand_image) }}" style="width: 80px;" alt="">
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -718,34 +732,179 @@
         </div>
     </div>
     <!-- shop modal end -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  
     <script>
-        $(document).ready(function() {
-            $('#thumbOne-tab').click(function() {
-                var images = $('#thumbOne-tab img').attr('src');
-                $("#thumbImage").attr('src', images)
-            });
+        // add to cart 
+        $('#add_cart_form_Qv').submit(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var request = $(this).serialize();
+            $.ajax({
+                url: url,
+                type: 'post',
+                async: false,
+                data: request,
+                success: function(data) {
+                    toastr.success(data);
+                    window.location.reload(true);
+
+
+                }
+            })
         })
     </script>
+@endsection
+
+@section('script')
 
 <script>
-    // add to cart 
-    $('#add_cart_form_Qv').submit(function(e) {
-      e.preventDefault();
-      var url = $(this).attr('action');
-      var request = $(this).serialize();
-      $.ajax({
-        url: url,
-        type:'post',
-        async: false,
-        data: request,
-        success:function(data){
-          toastr.success(data);
-        window.location.reload(true);
-   
-          
+    (function($) {
+        $.fn.picZoomer = function(options) {
+            var opts = $.extend({}, $.fn.picZoomer.defaults, options),
+                $this = this,
+                $picBD = $('<div class="picZoomer-pic-wp"></div>').css({
+                    'width': opts.picWidth + 'px',
+                    'height': opts.picHeight + 'px'
+                }).appendTo($this),
+                $pic = $this.children('img').addClass('picZoomer-pic').appendTo($picBD),
+                $cursor = $('<div class="picZoomer-cursor"><i class="f-is picZoomCursor-ico"></i></div>')
+                .appendTo($picBD),
+                cursorSizeHalf = {
+                    w: $cursor.width() / 2,
+                    h: $cursor.height() / 2
+                },
+                $zoomWP = $(
+                    '<div class="picZoomer-zoom-wp"><img src="" alt="" class="picZoomer-zoom-pic"></div>')
+                .appendTo($this),
+                $zoomPic = $zoomWP.find('.picZoomer-zoom-pic'),
+                picBDOffset = {
+                    x: $picBD.offset().left,
+                    y: $picBD.offset().top
+                };
+
+
+            opts.zoomWidth = opts.zoomWidth || opts.picWidth;
+            opts.zoomHeight = opts.zoomHeight || opts.picHeight;
+            var zoomWPSizeHalf = {
+                w: opts.zoomWidth / 2,
+                h: opts.zoomHeight / 2
+            };
+
+            //初始化zoom容器大小
+            $zoomWP.css({
+                'width': opts.zoomWidth + 'px',
+                'height': opts.zoomHeight + 'px'
+            });
+            $zoomWP.css(opts.zoomerPosition || {
+                top: 0,
+                left: opts.picWidth + 30 + 'px'
+            });
+            //初始化zoom图片大小
+            $zoomPic.css({
+                'width': opts.picWidth * opts.scale + 'px',
+                'height': opts.picHeight * opts.scale + 'px'
+            });
+
+            //初始化事件
+            $picBD.on('mouseenter', function(event) {
+                $cursor.show();
+                $zoomWP.show();
+                $zoomPic.attr('src', $pic.attr('src'))
+            }).on('mouseleave', function(event) {
+                $cursor.hide();
+                $zoomWP.hide();
+            }).on('mousemove', function(event) {
+                var x = event.pageX - picBDOffset.x,
+                    y = event.pageY - picBDOffset.y;
+
+                $cursor.css({
+                    'left': x - cursorSizeHalf.w + 'px',
+                    'top': y - cursorSizeHalf.h + 'px'
+                });
+                $zoomPic.css({
+                    'left': -(x * opts.scale - zoomWPSizeHalf.w) + 'px',
+                    'top': -(y * opts.scale - zoomWPSizeHalf.h) + 'px'
+                });
+
+            });
+            return $this;
+
+        };
+        $.fn.picZoomer.defaults = {
+            picHeight: 460,
+            scale: 2.5,
+            zoomerPosition: {
+                top: '0',
+                left: '380px'
+            },
+
+            zoomWidth: 400,
+            zoomHeight: 460
+        };
+    })(jQuery);
+
+
+
+    $(document).ready(function() {
+
+        $('#check').click(function() {
+            alert('[He;l]');
+        });
+
+        $('.picZoomer').picZoomer();
+        $('.piclist li').on('click', function(event) {
+            var $pic = $(this).find('img');
+            $('.picZoomer-pic').attr('src', $pic.attr('src'));
+        });
+
+        var owl = $('#recent_post');
+        owl.owlCarousel({
+            margin: 20,
+            dots: false,
+            nav: true,
+            navText: [
+                "<i class='fa fa-chevron-left'></i>",
+                "<i class='fa fa-chevron-right'></i>"
+            ],
+            autoplay: true,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                },
+                1200: {
+                    items: 4
+                }
+            }
+        });
+
+        $('.decrease_').click(function() {
+            decreaseValue(this);
+        });
+        $('.increase_').click(function() {
+            increaseValue(this);
+        });
+
+        function increaseValue(_this) {
+            var value = parseInt($(_this).siblings('input#number').val(), 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            $(_this).siblings('input#number').val(value);
         }
-      })
-    })
-  </script>
+
+        function decreaseValue(_this) {
+            var value = parseInt($(_this).siblings('input#number').val(), 10);
+            value = isNaN(value) ? 0 : value;
+            value < 1 ? value = 1 : '';
+            value--;
+            $(_this).siblings('input#number').val(value);
+        }
+    });
+</script>
 @endsection

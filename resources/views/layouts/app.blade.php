@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/ui-range-slider.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
-
-    
     <!-- toaste -->
     <link rel="stylesheet" href="{{asset('backend/plugins/toastr/toastr.css')}}">
 </head>
@@ -52,6 +50,7 @@
     <script src="{{ asset('frontend/js/backToTop.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.fancybox.min.js') }}"></script>
     <script src="{{ asset('frontend/js/countdown.js') }}"></script>
+    
     <script src="{{ asset('frontend/js/nice-select.min.js') }}"></script>
     <script src="{{ asset('frontend/js/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
@@ -61,8 +60,9 @@
     <script src="{{ asset('frontend/js/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <!-- toaste -->
-<script src="{{asset('backend/plugins/toastr/toastr.min.js')}}"></script>
-
+  <script src="{{asset('backend/plugins/toastr/toastr.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+  @yield('script')
 
     <script>
         @if (Session::has('message'))

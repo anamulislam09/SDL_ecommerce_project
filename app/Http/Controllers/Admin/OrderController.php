@@ -21,4 +21,11 @@ class OrderController extends Controller
         // dd($data);
         return view('admin.orders.index', compact( 'data'));
     }
+
+    // notTodayDeal method 
+    public function orderStatus($id)
+    {
+        DB::table('orders')->where('id', $id)->update(['status' => 1]);
+        return response()->json('Product deliverd successfully');
+    }
 }

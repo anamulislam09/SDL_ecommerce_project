@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 
 @section('admin_content')
@@ -46,18 +45,20 @@
                                                 <td>{{ $total_price }}</td>
                                                 <td>
                                                     @if ($item->status == 0)
-                                                        <span class="badge badge-info">pending</span>
+                                                        <a href="#"data-id= "{{$item->id }}"class="status"><span
+                                                                class="badge badge-info ">pending</span></a>
                                                     @else
                                                         <span class="badge badge-primary">deliverd</span>
                                                     @endif
-                                                    <a href="{{ route('subcategory.delete', $item->id) }}"><span class="badge badge-danger">cancelled</span></a>
+                                                    <a href="{{ route('subcategory.delete', $item->id) }}"><span
+                                                            class="badge badge-danger">cancelled</span></a>
                                                 </td>
 
                                                 <td>
                                                     <a href="" class="btn btn-sm btn-info edit"
                                                         data-id="{{ $item->id }}" data-toggle="modal"
                                                         data-target="#editSubCatModel"><i class="fas fa-edit"></i></a>
-                                                    
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -73,7 +74,7 @@
 
     {{-- category edit model --}}
     <!-- Modal -->
-    <div class="modal fade" id="editSubCatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="editSubCatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -90,18 +91,26 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- jQuery -->
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js"></script>
     <script>
-        $('body').on('click', '.edit', function() {
-            let Subcat_id = $(this).data('id');
-            $.get("subcategory/edit/" + Subcat_id, function(data) {
-                $('#modal_body').html(data);
-
-            })
-        })
+          //   {{-- active_status --}}
+    $('body').on('click', '.status', function() {
+      let id = $(this).data('id');
+      alert(id);
+      var url = "{{ url('orders/order-status') }}/" + id;
+      $.ajax({
+        url: url,
+        type: 'get',
+        success: function(data) {
+          // alert(data);
+          toastr.success(data);
+          window.location.reload()
+        }
+      })
+    })
     </script>
 @endsection

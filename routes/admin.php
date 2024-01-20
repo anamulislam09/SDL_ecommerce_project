@@ -93,10 +93,10 @@ Route::middleware('is_admin')->group(function () {
 // orders route
 Route::group(['prefix' => 'orders'], function () {
     Route::get('/', [OrderController::class, 'index'])->name('order.index');
-    // Route::get('/create', [WarehouseController::class, 'create'])->name('warehouse.create');
+    // Route::get('/order-status', [WarehouseController::class, 'create'])->name('warehouse.create');
     // Route::post('/store', [WarehouseController::class, 'store'])->name('store.warehouse');
-    // Route::get('/edit/{id}', [WarehouseController::class, 'edit']);
-    // Route::post('/update', [WarehouseController::class, 'update'])->name('update.warehouse');
+    Route::get('/order-status/{id}', [OrderController::class, 'orderStatus']);
+    // Route::post('/update', [OrderController::class, 'update'])->name('update.order');
     // Route::get('/delete/{id}', [WarehouseController::class, 'destroy'])->name('warehouse.delete');
 });
 
