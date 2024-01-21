@@ -21,12 +21,24 @@ return new class extends Migration
             $table->string('district');
             $table->string('upozilla');
             $table->string('post_code');
+            $table->string('email');
             $table->string('phone1');
             $table->string('phone2')->nullable();
-            $table->string('email');
-            $table->string('status')->default('0');
+            $table->string('subtotal')->nullable();
+            $table->string('total')->nullable();
+            $table->string('coupon_code')->nullable();
+            $table->string('coupon_discount')->nullable();
+            $table->string('after_discount')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('tax')->nullable();
+            $table->string('shipping_charge',5)->nullable();
+            $table->integer('status')->default('0');
             $table->string('message')->nullable();
-            $table->string('tracking_no');
+            $table->string('order_id',25)->nullable();
+            $table->string('date')->nullable();
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+
             $table->timestamps();
         });
     }

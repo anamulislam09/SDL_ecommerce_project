@@ -16,52 +16,44 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <label for="">Date</label>
+                                    <input type="date" name="date" id="date"
+                                        class="form-control submitable_input">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="">Status</label>
+                                    <select name="status" class="form-control submitable" id="status">
+                                        <option value="">All</option>
+                                        <option value="0">Pending</option>
+                                        <option value="1">Received</option>
+                                        <option value="2">Shipped</option>
+                                        <option value="3">Complete</option>
+                                        <option value="4">Return</option>
+                                        <option value="5">Cancel</option>
+                                    </select>
+                                </div>
+                            </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
+                                <table id="dataTable" class="table table-bordered table-striped">
+                                    {{-- <thead>
                                         <tr>
-                                            <th>SL</th>
-                                            <th>Order id</th>
-                                            <th>Customer Name</th>
-                                            {{-- <th>Date</th> --}}
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th> Action</th>
-                                    </thead>
+                                            <th>Sl</th>
+                                            <th>name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>subtotal</th>
+                                            <th>total</th>
+                                            <th>payment_type</th>
+                                            <th>date</th>
+                                            <th>status</th>
+                                        </tr>
+                                    </thead> --}}
+
                                     <tbody>
 
-                                        @php
-                                            $total_price = 0;
-                                        @endphp
-                                        @foreach ($data as $key => $item)
-                                            @php
-                                                $total_price = $total_price + $item->price * $item->quantity;
-                                            @endphp
-                                            <tr>
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->order_id }}</td>
-                                                <td>{{ $item->name }}</td>
-                                                <td>{{ $total_price }}</td>
-                                                <td>
-                                                    @if ($item->status == 0)
-                                                        <a href="#"data-id= "{{$item->id }}"class="status"><span
-                                                                class="badge badge-info ">pending</span></a>
-                                                    @else
-                                                        <span class="badge badge-primary">deliverd</span>
-                                                    @endif
-                                                    <a href="{{ route('subcategory.delete', $item->id) }}"><span
-                                                            class="badge badge-danger">cancelled</span></a>
-                                                </td>
-
-                                                <td>
-                                                    <a href="" class="btn btn-sm btn-info edit"
-                                                        data-id="{{ $item->id }}" data-toggle="modal"
-                                                        data-target="#editSubCatModel"><i class="fas fa-edit"></i></a>
-
-                                                </td>
-                                            </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -72,45 +64,160 @@
         </section>
     </div>
 
-    {{-- category edit model --}}
-    <!-- Modal -->
-    {{-- <div class="modal fade" id="editSubCatModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit SubCategory </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div id="modal_body">
-
-                </div>
-
-            </div>
+       {{-- brand edit model --}}
+  <!-- Modal -->
+  <div class="modal fade" id="editOrderModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Oeder </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div> --}}
+
+        <div id="modal_body">
+
+        </div>
+       
+      </div>
+    </div>
+  </div>
 
     <!-- jQuery -->
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.js"></script>
+    {{-- Datatable start here --}}
     <script>
-          //   {{-- active_status --}}
-    $('body').on('click', '.status', function() {
-      let id = $(this).data('id');
-      alert(id);
-      var url = "{{ url('orders/order-status') }}/" + id;
-      $.ajax({
-        url: url,
-        type: 'get',
-        success: function(data) {
-          // alert(data);
-          toastr.success(data);
-          window.location.reload()
-        }
-      })
-    })
+        $(document).ready(function() {
+            let table = $('#dataTable').DataTable({
+                stateSave: true,
+                responsive: true,
+                serverSide: true,
+                processing: true,
+                searching: true,
+                ajax: {
+                    url: "{{ route('order.index') }}",
+                    data: function(e) {
+                        e.status = $('#status').val();
+                        e.date = $('#date').val();
+                    }
+                },
+                columns: [{
+                        data: "DT_RowIndex",
+                        title: "SL",
+                        name: "DT_RowIndex",
+                        searchable: false,
+                        orderable: false
+                    },
+                    {
+                        data: "name",
+                        title: "Name ",
+                        searchable: true
+                    },
+
+                    {
+                        data: "order_id",
+                        title: "Order_id",
+                        searchable: true
+                    },
+                    // {
+                    //     data: "apportment",
+                    //     title: "apportment",
+                    //     searchable: true
+                    // },
+                    // {
+                    //     data: "country",
+                    //     title: "country",
+                    //     searchable: true
+                    // },
+                    // {
+                    //     data: "district",
+                    //     title: "district",
+                    //     searchable: true
+                    // },
+                    // {
+                    //     data: "upozilla",
+                    //     title: "upozilla",
+                    //     searchable: true
+                    // },
+                    // {
+                    //     data: "post_code",
+                    //     title: "post_code",
+                    //     searchable: true
+                    // },
+                    // {
+                    //     data: "email",
+                    //     title: "email",
+                    //     searchable: true
+                    // },
+                    {
+                        data: "phone1",
+                        title: "phone1",
+                        searchable: true
+                    },
+                    // {
+                    //     data: "phone2",
+                    //     title: "phone2",
+                    //     searchable: true
+                    // },
+                    // {
+                    //     data: "subtotal",
+                    //     title: "subtotal",
+                    //     searchable: true
+                    // },
+                    {
+                        data: "total",
+                        title: "total",
+                        searchable: true
+                    },
+                    // {
+                    //     data: "payment_type",
+                    //     title: "payment_type",
+                    //     searchable: true
+                    // },
+                    {
+                        data: "date",
+                        title: "date",
+                        searchable: true
+                    },
+                    {
+                        data: "status",
+                        title: "status",
+                        
+                        orderable: false,
+                        searchable: true
+                    },
+                    {
+                        data: "action",
+                        title: "action",
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+            });
+        })
+        // {{-- submit ALL call for any changes--}}
+        $(document).on('change', '.submitable', function(){
+            $('.dataTable').DataTable().ajax.reload();
+        })
+        $(document).on('blur', '.submitable_input', function(){
+            $('.dataTable').DataTable().ajax.reload();
+        })
+
+        //   {{-- active_status --}}
+        $('body').on('click', '.edit', function() {
+            let id = $(this).data('id');
+            var url = "{{ url('orders/edit') }}/" + id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data) {
+                $('#modal_body').html(data);
+                    // toastr.success(data);
+                    // window.location.reload()
+                }
+            })
+        })
     </script>
 @endsection

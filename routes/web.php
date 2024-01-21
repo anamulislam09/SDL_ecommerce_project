@@ -6,6 +6,7 @@ use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -52,5 +53,12 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('clear-cart', [CartController::class, 'clearCartItem'])->name('clearCartItem');
     Route::get('my-cart/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
     Route::post('my-cart/place-order', [CheckoutController::class, 'placeOrder'])->name('cart.placeorder');
+
+    });
+
+Route::group(['prefix' => 'user'], function () {
+    // user dashboard route
+    Route::get('dashboard', [UserController::class, 'Index'])->name('user.index');
+
 
     });

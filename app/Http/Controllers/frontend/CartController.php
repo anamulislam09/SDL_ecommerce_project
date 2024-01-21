@@ -23,6 +23,7 @@ class CartController extends Controller
         Cart::insert([
             'user_id' => Auth::id(),
             'product_id' => $request->id,
+            'product_name' => $request->product_name,
             'quantity' => $request->qty,
             'price' => $request->price,
            'size' => $request->size, 

@@ -172,7 +172,8 @@
                                         <input type="hidden" name="price" value="{{ $data->selling_price }}">
                                     @else
                                         <input type="hidden" name="price" value="{{ $data->descount_price }}">
-                                    @endif
+                                        @endif
+                                        <input type="hidden" name="product_name" value="{{ $data->product_name }}">
 
                                     <div class="clearfix" style="z-index: 1000">
                                         <div class="form-group">

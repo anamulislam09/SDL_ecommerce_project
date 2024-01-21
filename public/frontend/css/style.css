@@ -5941,3 +5941,13 @@ section {
     object-fit:cover;
 }
 
+
+
+/* custome css from users profile */
+
+.order-section {
+    display: inline-block;
+    padding: 20px 20px;
+    border: 1px solid #ddd;
+    margin: 10px;
+}

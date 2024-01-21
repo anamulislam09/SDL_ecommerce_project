@@ -13,7 +13,7 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="input-group mb-3">
-                <input type="email" class="form-control" name="email" :value="old('email')" required autofocus placeholder="Email">
+                <input type="email" class="form-control" name="email" value="anam@gmail.com" required autofocus placeholder="Email">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="input-group mb-3">
-                <input type="password" class="form-control" name="password"
+                <input type="password" class="form-control" value="anam12345" name="password"
                 required autocomplete="current-password"placeholder="Password">
                 <div class="input-group-append">
                     <div class="input-group-text">

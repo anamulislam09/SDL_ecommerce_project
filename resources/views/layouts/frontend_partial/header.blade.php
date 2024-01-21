@@ -48,7 +48,7 @@
                                       <li><a href="#" class="dropdown-toggle"
                                               data-bs-toggle="dropdown">{{ Auth::user()->name }}</a>
                                           <ul class="dropdown-menu p-3">
-                                              <li><a href="#">Profile</a></li>
+                                              <li><a href="{{route('user.index')}}">Profile</a></li>
                                               <li><a href="#">Setings</a></li>
                                               <li><a href="#">Order List</a></li>
                                               <li><a href="{{ route('customer.logout') }}">Logout</a></li>
@@ -325,7 +325,7 @@
                       <div class="mb-3 mt-3">
                           <label for="email" class="form-label">Email:</label>
                           <input type="text" class="form-control @error('email') is-invalid @enderror"
-                              name="email" placeholder="Enter  your email">
+                              name="email" value="user@gmail.com">
                       </div>
                       @error('email')
                           <div class="alert alert-danger">{{ $message }}</div>
@@ -334,7 +334,7 @@
                       <div class="mb-3 mt-3">
                           <label for="password" class="form-label">Password:</label>
                           <input type="password" class="form-control @error('password') is-invalid @enderror"
-                              name="password" placeholder="Enter  your password">
+                              name="password" value="user12345">
                       </div>
                       @error('password')
                           <div class="alert alert-danger">{{ $message }}</div>

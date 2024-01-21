@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
+            $table->string('product_name');
             $table->integer('quantity')->nullable()->default(1);
             $table->string('size')->nullable()->default(1);
             $table->string('color')->nullable()->default(1);

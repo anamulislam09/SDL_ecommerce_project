@@ -14,7 +14,7 @@ class IndexController extends Controller
     public function logout(){
         Auth()->logout();
         $notification = array('message'=>'You are logout out','alert_type'=>'warning');
-        return redirect()->back()->with($notification);
+        return redirect()->route('index')->with($notification);
     }
 
     // index 
